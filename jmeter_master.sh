@@ -14,7 +14,7 @@ sudo sed -i 's/remote_hosts=127/#remote_hosts=127/' /usr/share/jmeter/bin/jmeter
 
 mkdir /usr/share/jmeter/extras
 
-wget https://s3.amazonaws.com/$BUCKET/conversion.xml -O /usr/share/jmeter/extras/conversion.xml
-wget https://s3.amazonaws.com/$BUCKET/jmeter-results-detail-report_21.xsl -O /usr/share/jmeter/extras/jmeter-results-detail-report_21.xsl
+#wget https://s3.amazonaws.com/$BUCKET/conversion.xml -O /usr/share/jmeter/extras/conversion.xml
+#wget https://s3.amazonaws.com/$BUCKET/jmeter-results-detail-report_21.xsl -O /usr/share/jmeter/extras/jmeter-results-detail-report_21.xsl
 
   

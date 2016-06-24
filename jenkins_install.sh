@@ -11,3 +11,5 @@ then
 else
 	echo "Jenkins installation failed"
 fi
+
+sudo usermod -a -G sudo jenkins

@@ -1,5 +1,4 @@
 #!/bin/bash
-PROJECT=xyz;BUCKET=LoadTesting_xyz
 
 touch /tmp/install.log
 > /tmp/install.log
