@@ -1,2 +1,2 @@
-export PROJECT=qwerty
-export BUCKET=LoadTesting_qwerty
+export PROJECT=GunjanLatest
+export BUCKET=LoadTesting_GunjanLatest

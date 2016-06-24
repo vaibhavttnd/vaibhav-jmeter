@@ -4,7 +4,7 @@
 sudo apt-get update
 sudo apt-get install awscli -y
 
-if [ $? -eq 0 ]
+if [ `which aws` ]
 then
 echo "AWS CLI installed"
 else
@@ -36,3 +36,8 @@ export AWS_ACCESS_KEY_ID=$AK
 export AWS_SECRET_ACCESS_KEY=$SAK
 export AWS_CONFIG_FILE="~/.aws/config"
 
+cat <<here >> ./user_data_file.sh
+export AWS_ACCESS_KEY_ID=$AK
+export AWS_SECRET_ACCESS_KEY=$SAK
+export AWS_DEFAULT_REGION=$Region
+here
