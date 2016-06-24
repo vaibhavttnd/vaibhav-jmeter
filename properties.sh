@@ -1,2 +1,0 @@
-export PROJECT=GunjanLatest
-export BUCKET=LoadTesting_GunjanLatest
