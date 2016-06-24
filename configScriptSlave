@@ -4,7 +4,6 @@ sudo apt-get update
 sudo apt-get install openjdk-7-jdk --fix-missing -yy
 
 sudo apt-get install jmeter -y
-#sudo bash /usr/share/jmeter/bin/jmeter-server
 
 sudo sed -i 's/remote_hosts=127/#remote_hosts=127/' /usr/share/jmeter/bin/jmeter.properties
 

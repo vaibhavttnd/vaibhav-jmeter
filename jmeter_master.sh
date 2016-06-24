@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=Shruti;BUCKET=LoadTesting_Shruti
+PROJECT=qwerty;BUCKET=LoadTesting_qwerty
 set -e
 
 sudo apt-get update

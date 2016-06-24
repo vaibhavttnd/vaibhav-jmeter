@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=Shruti;BUCKET=LoadTesting_Shruti
+PROJECT=qwerty;BUCKET=LoadTesting_qwerty
 
 touch /tmp/install.log
 > /tmp/install.log
@@ -11,4 +11,11 @@ sudo bash /tmp/jmeter_master.sh >> /tmp/install.log
 sudo bash /tmp/jenkins_install.sh >> /tmp/install.log
 sudo apt-get install git -y
 
-sudo apt-get install awscli -y
+mkdir /home/jenkins/.aws
+touch /home/jenkins/.aws/config
+
+cat <<here >> /.aws/config
+[default]
+region=us-east-1
+output=json
+here

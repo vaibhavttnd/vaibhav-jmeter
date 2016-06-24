@@ -1,2 +1,2 @@
-export PROJECT=Shruti
-export BUCKET=LoadTesting_Shruti
+export PROJECT=qwerty
+export BUCKET=LoadTesting_qwerty
