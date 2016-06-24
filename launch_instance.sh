@@ -22,8 +22,10 @@ read KeyPairName
 sudo wget https://s3.amazonaws.com/$BUCKET/user_data_file.sh -O /tmp/user_data_file.sh
 
 InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file:///tmp/user_data_file.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
-sleep 20
+sleep 10
 echo "Master created, Instance id= "$InstanceID
 echo "Master IP= "$(aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PublicIpAddress" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Master_$PROJECT
-
+echo "Wait while Master Instance is configured"
+sleep 300
+echo "Done!"
