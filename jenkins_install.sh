@@ -13,3 +13,4 @@ else
 fi
 
 sudo usermod -a -G sudo jenkins
+sudo chown jenkins:jenkins /usr/share/jmeter/extras

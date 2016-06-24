@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=Gunjan;BUCKET=LoadTesting_Gunjan
+PROJECT=Shruti;BUCKET=LoadTesting_Shruti
 
 touch /tmp/install.log
 > /tmp/install.log
