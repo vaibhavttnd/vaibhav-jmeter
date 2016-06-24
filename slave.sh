@@ -4,6 +4,7 @@ echo "slave.sh"
 touch /usr/share/jmeter/extras/ip.txt
 > /usr/share/jmeter/extras/ip.txt
 source properties.sh
+count=$NoOfInstances
 while [ $count > 0 ]
 do
 InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configScriptSlave --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
