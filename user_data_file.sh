@@ -14,7 +14,7 @@ sudo apt-get install git -y
 mkdir ~/.aws
 touch ~/.aws/config
 
-cat <<here >> ~/.aws/config
+cat <<here >> /var/lib/jenkins/.aws/config
 [default]
 region=us-east-1
 output=json
