@@ -21,6 +21,7 @@ sleep 5
 bash awscliconfig.sh | tee $PROJECT.log
 sed -i '/PROJECT=/d' user_data_file.sh
 sed -i '/PROJECT=/d' jmeter_master.sh
+sed -i '/export/d' user_data_file.sh
 sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET=$BUCKET" user_data_file.sh
 sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET=$BUCKET" jmeter_master.sh 
 

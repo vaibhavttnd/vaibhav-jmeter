@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=xyz;BUCKET=LoadTesting_xyz
+PROJECT=Gunjan;BUCKET=LoadTesting_Gunjan
 set -e
 
 sudo apt-get update
