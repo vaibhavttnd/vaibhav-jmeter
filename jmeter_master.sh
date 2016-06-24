@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=qwerty;BUCKET=LoadTesting_qwerty
+PROJECT=GunjanLatest;BUCKET=LoadTesting_GunjanLatest
 set -e
 
 sudo apt-get update
