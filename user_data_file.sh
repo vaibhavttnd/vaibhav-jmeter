@@ -11,8 +11,8 @@ sudo bash /tmp/jmeter_master.sh >> /tmp/install.log
 sudo bash /tmp/jenkins_install.sh >> /tmp/install.log
 sudo apt-get install git -y
 
-mkdir ~/.aws
-touch ~/.aws/config
+mkdir /var/lib/jenkins/.aws
+touch /var/lib/jenkins/.aws/config
 
 cat <<here >> /var/lib/jenkins/.aws/config
 [default]
