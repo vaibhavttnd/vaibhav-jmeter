@@ -20,6 +20,8 @@ read KeyPairName
 #KeyPairName=key_Gunjan
 echo -n "Enter Number of Slaves to be created: "
 read NoOfInstances
+echo -n "Enter URL of the Git Repository: "
+read URL
 cat <<here >> properties.sh
 export AMI=$AMI
 export InstanceType=$InstanceType
@@ -27,6 +29,7 @@ export Subnet=$Subnet
 export SecurityGroup=$SecurityGroup
 export KeyPairName=$KeyPairName
 export NoOfInstances=$NoOfInstances
+export URL=$URL
 here
 
 git add properties.sh
