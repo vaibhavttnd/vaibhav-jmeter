@@ -1,2 +1,23 @@
+<<<<<<< HEAD
 export PROJECT=Final
 export BUCKET=LoadTesting_Final
+=======
+export PROJECT=Gunjan
+export BUCKET=LoadTesting_Gunjan
+export jmxFile=tothenew
+export OutputFile=opfile
+export AMI=ami-fce3c696
+export InstanceType=t2.micro
+export Subnet=subnet-a28a3dfa
+export SecurityGroup=sg-ee751395
+export KeyPairName=key_Gunjan
+export NoOfInstances=1
+export URL=https://github.com/gunjan-lal/jenkins_masterslave.git/
+export AMI=ami-fce3c696
+export InstanceType=t2.micro
+export Subnet=subnet-a28a3dfa
+export SecurityGroup=sg-ee751395
+export KeyPairName=key_Gunjan
+export NoOfInstances=1
+export URL=https://github.com/gunjan-lal/jenkins_masterslave.git/
+>>>>>>> 3f9ff475d1765815699bc53991348b03321533ee
