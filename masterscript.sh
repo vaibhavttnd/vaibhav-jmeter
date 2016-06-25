@@ -3,13 +3,19 @@
 echo -ne "Enter the Project name: "
 read PROJECT
 BUCKET="LoadTesting"_$PROJECT
+echo -ne "Enter the name of the jmx file: "
+read jmxFile
+echo -ne "Enter the name of the output file: "
+read OutputFile
+
 > properties.sh
 
 cat <<here >> properties.sh
 export PROJECT=$PROJECT
 export BUCKET=LoadTesting_$PROJECT
+export jmxFile=$jmxFile
+export OutputFile=$OutputFile
 here
-source properties.sh
 
 #create log file
 touch ./$PROJECT.log
@@ -18,7 +24,6 @@ touch ./$PROJECT.log
 echo "About to configure aws cli!"
 sleep 5
 
-sed -i '/export/d' user_data_file.sh
 bash awscliconfig.sh | tee $PROJECT.log
 sed -i '/PROJECT=/d' user_data_file.sh
 sed -i '/PROJECT=/d' jmeter_master.sh

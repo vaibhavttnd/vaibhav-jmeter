@@ -18,14 +18,20 @@ read SecurityGroup
 echo -n "Enter Name of Key Pair: "
 read KeyPairName
 #KeyPairName=key_Gunjan
+echo -n "Enter Number of Slaves to be created: "
+read NoOfInstances
 cat <<here >> properties.sh
-AMI=$AMI
-InstanceType=$InstanceType
-Subnet=$Subnet
-SecurityGroup=$SecurityGroup
-KeyPairName=$KeyPairName
+export AMI=$AMI
+export InstanceType=$InstanceType
+export Subnet=$Subnet
+export SecurityGroup=$SecurityGroup
+export KeyPairName=$KeyPairName
+export NoOfInstances=$NoOfInstances
 here
 
+git add properties.sh
+git commit -m "properties.sh"
+git push
 #sudo wget https://s3.amazonaws.com/$BUCKET/user_data_file.sh -O /tmp/user_data_file.sh
 #later need to add command for IAM ROLE creation with Admin ROLE
 InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://user_data_file.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
