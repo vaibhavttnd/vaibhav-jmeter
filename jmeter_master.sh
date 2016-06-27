@@ -1,4 +1,5 @@
 #!/bin/bash
+PROJECT=Shruti;BUCKET=LoadTesting_Shruti
 set -e
 
 sudo apt-get update

@@ -1,4 +1,5 @@
 #!/bin/bash
+PROJECT=Shruti;BUCKET=LoadTesting_Shruti
 
 touch /tmp/install.log
 > /tmp/install.log
@@ -18,3 +19,8 @@ touch /var/lib/jenkins/.aws/config
 #region=us-east-1
 #output=json
 #here
+cat <<here >> /var/lib/jenkins/.aws/config
+[default]
+region=us-east-1
+output=json
+here
