@@ -1,7 +1,7 @@
-export PROJECT=Gunjan
-export BUCKET=LoadTesting_Gunjan
+export PROJECT=Shruti
+export BUCKET=LoadTesting_Shruti
 export jmxFile=tothenew
-export OutputFile=opfile
+export OutputFile=qwerty
 export AMI=ami-fce3c696
 export InstanceType=t2.micro
 export Subnet=subnet-a28a3dfa
