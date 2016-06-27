@@ -7,5 +7,5 @@ export InstanceType=t2.micro
 export Subnet=subnet-a28a3dfa
 export SecurityGroup=sg-ee751395
 export KeyPairName=key_Gunjan
-export NoOfInstances=1
+export NoOfInstances=2
 export URL=https://github.com/gunjan-lal/jenkins_masterslave.git/
