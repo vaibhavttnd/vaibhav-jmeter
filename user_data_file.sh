@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=Shruti;BUCKET=LoadTesting_Shruti
+PROJECT=ToTheNew;BUCKET=LoadTesting_ToTheNew
 
 touch /tmp/install.log
 > /tmp/install.log
@@ -13,14 +13,4 @@ sudo apt-get install git -y
 sudo apt-get install awscli -y
 mkdir /var/lib/jenkins/.aws
 touch /var/lib/jenkins/.aws/config
-
-#cat <<here >> /var/lib/jenkins/.aws/config
-#[default]
-#region=us-east-1
-#output=json
-#here
-cat <<here >> /var/lib/jenkins/.aws/config
-[default]
-region=us-east-1
-output=json
-here
+> /var/lib/jenkins/.aws/config
