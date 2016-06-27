@@ -37,7 +37,12 @@ git commit -m "properties.sh"
 git push $URL
 #sudo wget https://s3.amazonaws.com/$BUCKET/user_data_file.sh -O /tmp/user_data_file.sh
 #later need to add command for IAM ROLE creation with Admin ROLE
-InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://user_data_file.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+aws iam create-role --role-name LoadTesting-Role --assume-role-policy-document file://LoadTesting-Trust.json
+aws iam put-role-policy --role-name LoadTesting-Role --policy-name LoadTesting-Permissions --policy-document file://LoadTesting-Permissions.json
+aws iam create-instance-profile --instance-profile-name LoadTesting-Instance-Profile
+aws iam add-role-to-instance-profile --instance-profile-name LoadTesting-Instance-Profile --role-name LoadTesting-Role
+
+InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://user_data_file.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 sleep 10
 echo "Master created, Instance id= "$InstanceID
 echo "Master IP= "$(aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PublicIpAddress" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
