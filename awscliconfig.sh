@@ -26,7 +26,7 @@ read Output
 
 mkdir ~/.aws/ && touch ~/.aws/config
 
-cat <<here >> ~/.aws/config
+cat <<here > ~/.aws/config
 [${Profile}]
 region=$Region
 output=$Output
