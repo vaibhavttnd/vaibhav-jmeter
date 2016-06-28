@@ -18,5 +18,5 @@ sleep 300
 #### write properties to jmeter.properties
 >/usr/share/jmeter/extras/outputFile.xml
 jmeter -n -t /usr/share/jmeter/extras/$jmxFile.jmx -l /usr/share/jmeter/extras/outputFile.xml -R $IPList;
-ant -f /usr/share/jmeter/extras/conversion.xml -Dtest=usr/share/jmeter/extras/$jmxFile
+ant -f /usr/share/jmeter/extras/conversion.xml
 aws s3 cp /usr/share/jmeter/extras/outputFile.html s3://$BUCKET/$OutputFile.html
