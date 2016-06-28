@@ -19,4 +19,5 @@ sleep 300
 >/usr/share/jmeter/extras/outputFile.xml
 jmeter -n -t /usr/share/jmeter/extras/$jmxFile.jmx -l /usr/share/jmeter/extras/outputFile.xml -R $IPList;
 ant -f /usr/share/jmeter/extras/conversion.xml
-aws s3 cp /usr/share/jmeter/extras/outputFile.html s3://$BUCKET/$OutputFile.html
+aws s3 cp /usr/share/jmeter/extras/outputFile.html s3://$BUCKET/$OutputFile.html --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+echo "https://s3.amazonaws.com/$BUCKET/$OutputFile.html"
