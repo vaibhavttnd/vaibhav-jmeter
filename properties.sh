@@ -9,3 +9,20 @@ export SecurityGroup=sg-ee751395
 export KeyPairName=key_Gunjan
 export NoOfInstances=2
 export URL=https://github.com/gunjan-lal/jenkins_masterslave.git
+<<<<<<< HEAD
+=======
+export AMI=ami-fce3c696
+export InstanceType=t2.micro
+export Subnet=subnet-a28a3dfa
+export SecurityGroup=sg-ee751395
+export KeyPairName=key_Gunjan
+export NoOfInstances=2
+export URL=https://github.com/gunjan-lal/jenkins_masterslave.git
+export AMI=ami-fce3c696
+export InstanceType=t2.micro
+export Subnet=subnet-a28a3dfa
+export SecurityGroup=sg-ee751395
+export KeyPairName=key_Gunjan
+export NoOfInstances=2
+export URL=https://github.com/gunjan-lal/jenkins_masterslave.git
+>>>>>>> b470264d9eb71684b0b0315d26c2a863419d2f76
