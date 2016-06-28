@@ -13,6 +13,7 @@ The following scripts are used to automate Load Testing using jmeter, ANT and Je
 	run_test.sh
 	slave.sh
 	user_data_file.sh
+	LoadTesting-README.txt
 
 Steps:
 
