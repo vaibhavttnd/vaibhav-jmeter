@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <project name="build-tests">
-          <xslt in="/usr/share/jmeter/extras/outputFile.xml"
-          out="/usr/share/jmeter/extras/outputFile.html"
+<xslt in="/usr/share/jmeter/extras/outputFile.xml" out="/usr/share/jmeter/extras/outputFile.html"
           style="/usr/share/jmeter/extras/jmeter-results-detail-report_21.xsl"/>
 </project>

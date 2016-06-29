@@ -9,13 +9,14 @@ bash -x /usr/share/jmeter/extras/slave.sh >> /usr/share/jmeter/extras/slave.log 
 IPList=$(cat ip.txt |awk 'FNR==1{print $0}')
 echo "Wait while slaves are configured!"
 sleep 300
-
-for i in $loops
+IFS=','
+array=( $loops )
+for i in ${array[@]}
 do
 
 >/usr/share/jmeter/extras/outputFile_$i.xml
 sed -i '/<xslt/d' /usr/share/jmeter/extras/conversion.xml
-sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml out="/usr/share/jmeter/extras/outputFile_'$i'.html""' /usr/share/jmeter/extras/conversion.xml
+sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out="/usr/share/jmeter/extras/outputFile_'$i'.html"' /usr/share/jmeter/extras/conversion.xml
 
 jmeter -n -t /usr/share/jmeter/extras/$jmxFile.jmx -l /usr/share/jmeter/extras/outputFile_'$i'.xml -R $IPList -Gusers=$users -Gloops=$i;
 ant -f /usr/share/jmeter/extras/conversion.xml
