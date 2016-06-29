@@ -20,7 +20,7 @@ sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out=
 
 jmeter -n -t /usr/share/jmeter/extras/$jmxFile.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$users -Gloops=$i;
 ant -f /usr/share/jmeter/extras/conversion.xml
-aws s3 cp /usr/share/jmeter/extras/outputFile.html s3://$BUCKET/$OutputFile_$i.html --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp /usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 Success=$(grep -o -m 1 '[0-9][0-9]*.[0-9][0-9]%' outputFile_$i.html | cut -d. -f1)
 echo "No. of loops: "$i
 echo "Success Rate: "$Success
