@@ -5,6 +5,12 @@ read PROJECT
 BUCKET="LoadTesting"_$PROJECT
 echo -ne "Enter the name of the jmx file: "
 read jmxFile
+echo -ne "Enter the number of users for the load test: "
+read users
+echo -ne "Enter the comma-separated values for loop count for the load test: "
+read loops
+echo -ne "Enter the success threshold for the load test: "
+read Threshold
 echo -ne "Enter the name of the output file: "
 read OutputFile
 
@@ -15,6 +21,9 @@ export PROJECT=$PROJECT
 export BUCKET=LoadTesting_$PROJECT
 export jmxFile=$jmxFile
 export OutputFile=$OutputFile
+export users=$users
+export loops=$loops
+export Threshold=$Threshold
 here
 
 #create log file
