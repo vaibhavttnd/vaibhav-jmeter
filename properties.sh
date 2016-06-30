@@ -1,10 +1,10 @@
-export PROJECT=Gunjan
-export BUCKET=LoadTesting_Gunjan
+export PROJECT=TTND
+export BUCKET=LoadTesting_TTND
 export jmxFile=tothenew
-export OutputFile=opFile
-export users=10
-export loops=10,20,30
-export Threshold=90
+export OutputFile=testresult
+export users=5
+export loops=100,200,300
+export Threshold=95
 export AMI=ami-fce3c696
 export InstanceType=t2.micro
 export Subnet=subnet-a28a3dfa
