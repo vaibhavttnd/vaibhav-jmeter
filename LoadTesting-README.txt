@@ -35,7 +35,8 @@ This script creates a new S3 bucket and takes as input the names of Project, the
         #Enter the name of the jmx file (without .jmx)
 	#Enter the number of users for the load test
 	#Enter the number of loops for the load test
-        #Enter the name of the output HTML file (without .html)	
+        Enter the success threshold for the load test
+	#Enter the name of the output HTML file (without .html)	
 It also installs awscli on your system and configures aws by taking your credentials as parameters. This may take a few minutes.
 	#Enter Access Key
 	#Enter Secret Access Key
@@ -79,4 +80,5 @@ Click on 'Install without restart'.
 	g) Build the job
 
 11. This job creates slave instances and runs Load Test on the master slave setup. The configuration of slaves takes a few minutes.
-After the job is completed, the URL of the HTML report is displayed and the report can be found in the S3 bucket.
+After the job is completed, go to the console output of the Build.
+The URL of the HTML report and the Success Rate of the test is displayed. The report can be found in the S3 bucket.
