@@ -12,6 +12,12 @@ then
         VPC=$(aws ec2 create-vpc --cidr-block $cidr | grep -o "vpc-[0-9,a-z,A-Z]*")
         aws ec2 create-tags --resources $VPC --tags Key=Name,Value=VPC_$PROJECT
         echo "VPC created, VpcId= "$VPC
+	echo "Creating Internet Gateway!"
+        IGW=`aws ec2 create-internet-gateway | grep -o "igw-[0-9,a-z,A-Z]*"`
+        aws ec2 attach-internet-gateway --internet-gateway-id $IGW --vpc-id $VPC
+        RTB=`aws ec2 create-route-table --vpc-id $VPC | grep -o "rtb-[0-9,a-z,A-Z]*"`
+        aws ec2 create-route --route-table-id $RTB --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW
+        echo "Done!"
 else
 	echo -ne "Enter VpcID: "
 	read VPC
