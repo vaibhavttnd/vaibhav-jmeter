@@ -16,7 +16,6 @@ then
         IGW=`aws ec2 create-internet-gateway | grep -o "igw-[0-9,a-z,A-Z]*"`
         aws ec2 attach-internet-gateway --internet-gateway-id $IGW --vpc-id $VPC
         RTB=`aws ec2 create-route-table --vpc-id $VPC | grep -o "rtb-[0-9,a-z,A-Z]*"`
-        aws ec2 create-route --route-table-id $RTB --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW
         echo "Done!"
 else
 	echo -ne "Enter VpcID: "
@@ -32,6 +31,9 @@ then
 	Subnet=$(aws ec2 create-subnet --vpc-id $VPC --cidr-block $cidr | grep -o "subnet-[0-9,a-z,A-Z]*")
 	aws ec2 create-tags --resources $Subnet --tags Key=Name,Value=Subnet_$PROJECT
         echo "Subnet created, Subnet Id= "$Subnet
+	aws ec2 associate-route-table --route-table-id $RTB --subnet-id $Subnet
+	aws ec2 create-route --route-table-id $RTB --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW
+	
 else
         echo -ne "Enter SubnetId: "
         read Subnet
