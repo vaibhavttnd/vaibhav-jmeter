@@ -30,7 +30,6 @@ export BUCKET_INSTALL=LoadTesting_$PROJECT
 export BUCKET_RESULT=LoadTestingResults_$PROJECT
 here
 
-<<<<<<< HEAD
 #sed -i '/PROJECT=/d' jenkins_install.sh
 sed -i '/PROJECT=/d' jmeter_master.sh
 #sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET;BUCKET_RESULT=LoadTestingResults_$PROJECT" jenkins_install.sh
@@ -42,15 +41,6 @@ sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET;BUCKET_RESULT=L
 #aws s3 cp ./File.jmx s3://$BUCKET_INSTALL/File.jmx --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 #aws s3 cp ./configScriptSlave s3://$BUCKET_INSTALL/configScriptSlave --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 #aws s3 cp ./slave.sh s3://$BUCKET_INSTALL/slave.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-=======
-sed -i '/PROJECT=/d' jenkins_install.sh
-sed -i '/PROJECT=/d' jmeter_master.sh
-sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET;BUCKET_RESULT=LoadTestingResults_$PROJECT" jenkins_install.sh
-sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET;BUCKET_RESULT=LoadTestingResults_$PROJECT" jmeter_master.sh
-
-aws s3api create-bucket --bucket $BUCKET_INSTALL
-aws s3 cp ./jmeter_master.sh s3://$BUCKET_INSTALL/jmeter_master.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
->>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 
 echo "About to launch Jenkins Master Instance!"
 sleep 5

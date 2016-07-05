@@ -15,15 +15,9 @@ export InstanceType=$InstanceType
 export URL=$URL
 here
 
-<<<<<<< HEAD
 git add instanceproperties.sh
 git commit -m "instanceproperties.sh"
 git push $URL
-=======
-#git add instanceproperties.sh
-#git commit -m "instanceproperties.sh"
-#git push $URL
->>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 
 aws iam create-role --role-name LoadTesting-Role --assume-role-policy-document file://LoadTesting-Trust.json
 aws iam put-role-policy --role-name LoadTesting-Role --policy-name LoadTesting-Permissions --policy-document file://LoadTesting-Permissions.json
