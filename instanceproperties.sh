@@ -1,9 +1,9 @@
 export PROJECT=ToTheNew
 export BUCKET_INSTALL=LoadTesting_ToTheNew
 export BUCKET_RESULT=LoadTestingResults_ToTheNew
-export VPC=vpc-b2fb7fd5
-export Subnet=subnet-352f0f6d
-export SecurityGroup=sg-b61649cd
+export VPC=vpc-66890d01
+export Subnet=subnet-b94e6893
+export SecurityGroup=sg-4e376835
 export KeyPairName=keykey
 export AMI=ami-fce3c696
 export InstanceType=t2.micro
