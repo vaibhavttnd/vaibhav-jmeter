@@ -1,4 +1,8 @@
 #!/bin/bash
+<<<<<<< HEAD
+=======
+PROJECT=gunjan;BUCKET_INSTALL=;BUCKET_RESULT=LoadTestingResults_gunjan
+>>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 
 sudo apt-get update
 sudo apt-get install openjdk-7-jdk --fix-missing -yy

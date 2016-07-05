@@ -1,4 +1,8 @@
 #!/bin/bash
+<<<<<<< HEAD
+=======
+PROJECT=Shruti;BUCKET=LoadTesting_Shruti
+>>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 set -e
 
 sudo apt-get update
@@ -7,11 +11,15 @@ sudo apt-get install openjdk-7-jdk --fix-missing -yy
 #install jmeter and ant
 sudo apt-get install jmeter -y
 sudo apt-get install ant -y
+<<<<<<< HEAD
 sudo apt-get install awscli -y
+=======
+>>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 
 #remove loopback address from jmeter.properties
 sudo sed -i 's/remote_hosts=127/#remote_hosts=127/' /usr/share/jmeter/bin/jmeter.properties
 
+<<<<<<< HEAD
 sudo mkdir /usr/share/jmeter/extras
 
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/conversion.xml -O /usr/share/jmeter/extras/conversion.xml
@@ -66,5 +74,11 @@ done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
 aws s3 cp /var/log/cloud-init-output.log s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
+=======
+mkdir /usr/share/jmeter/extras
+
+#wget https://s3.amazonaws.com/$BUCKET/conversion.xml -O /usr/share/jmeter/extras/conversion.xml
+#wget https://s3.amazonaws.com/$BUCKET/jmeter-results-detail-report_21.xsl -O /usr/share/jmeter/extras/jmeter-results-detail-report_21.xsl
+>>>>>>> 4a989098bd3f26709e2a6ee8e1f880ed6467e329
 
   
