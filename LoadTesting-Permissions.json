@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",  
+"Statement": [
+    {
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": "ec2:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+    {
+       "Effect": "Allow",
+        "Action": [
+               "iam:GenerateCredentialReport",
+               "iam:Get*",
+               "iam:List*"
+                  ],
+           "Resource": "*"
+       }
+  ]
+}
