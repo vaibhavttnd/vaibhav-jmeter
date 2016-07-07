@@ -1,5 +1,4 @@
 #!/bin/bash
-PROJECT=GUNJAN;BUCKET_INSTALL=LoadTesting_Gunjan;BUCKET_RESULT=LoadTestingResults_Gunjan;
 set -e
 
 sudo apt-get update
