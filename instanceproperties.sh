@@ -1,10 +1,10 @@
-export PROJECT=ToTheNew
-export BUCKET_INSTALL=LoadTesting_ToTheNew
-export BUCKET_RESULT=LoadTestingResults_ToTheNew
+export PROJECT=Gunjan
+export BUCKET_INSTALL=LoadTesting_Gunjan
+export BUCKET_RESULT=LoadTestingResults_Gunjan
 export VPC=vpc-66890d01
-export Subnet=subnet-b94e6893
+export Subnet=
 export SecurityGroup=sg-4e376835
-export KeyPairName=keykey
+export KeyPairName=key_Gunjan
 export AMI=ami-fce3c696
 export InstanceType=t2.micro
 export URL=https://github.com/gunjan-lal/repo2.git
