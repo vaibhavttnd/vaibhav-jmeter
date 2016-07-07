@@ -41,7 +41,7 @@ sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out=
 bash -x /usr/share/jmeter/extras/slave.sh $i
 echo "-----------------Please wait while Slaves are configured!--------------------"
 sleep 300
-source testproperties.sh
+source /usr/share/jmeter/extras/testproperties.sh
 
 #read IP of all slaves
 IPList=$(cat ip.txt |awk 'FNR==1{print $0}')
