@@ -25,6 +25,13 @@ wget https://s3.amazonaws.com/$BUCKET_INSTALL/testproperties.sh -O /usr/share/jm
 
 source /usr/share/jmeter/extras/instanceproperties.sh
 source /usr/share/jmeter/extras/testproperties.sh
+mkdir ~/.aws
+> ~/.aws/config
+cat<<here >> ~/.aws/config
+[default]
+region=us-east-1
+output=json
+here
 
 >slave.log
 IFS=','
