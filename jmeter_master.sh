@@ -50,7 +50,7 @@ sleep 300
 source /usr/share/jmeter/extras/testproperties.sh
 
 #read IP of all slaves
-IPList=$(cat ip.txt |awk 'FNR==1{print $0}')
+IPList=$(cat /usr/share/jmeter/extras/ip.txt |awk 'FNR==1{print $0}')
 
 ##############calculate no of users per slave
 UsersPerSlave=`expr $users / $ SlavesNeeded`
@@ -83,6 +83,5 @@ fi
 done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
 aws s3 cp /var/log/cloud-init-output.log s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-
 
   
