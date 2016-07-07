@@ -1,6 +1,5 @@
 #!/bin/bash
 PROJECT=TTND;BUCKET_INSTALL=LoadTesting_TTND;BUCKET_RESULT=LoadTestingResults_TTND;
-set -e
 
 sudo apt-get update
 sudo apt-get install openjdk-7-jdk --fix-missing -yy
