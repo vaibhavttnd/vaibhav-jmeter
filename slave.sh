@@ -11,7 +11,7 @@ sleep 5
 ####calculate no of slaves needed
 num=`expr $users + $Load - 1`
 SlavesNeeded=`expr $num / $Load`
-
+sed -i '/export SlavesNeeded=/d' testproperties.sh
 cat<<here >> testproperties.sh
 export SlavesNeeded=$SlavesNeeded
 here
