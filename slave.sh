@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source /usr/share/jmeter/extras/instanceproperties.sh
 source /usr/share/jmeter/extras/testproperties.sh
 
