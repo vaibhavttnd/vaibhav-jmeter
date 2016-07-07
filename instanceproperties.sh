@@ -5,6 +5,6 @@ export VPC=vpc-66890d01
 export Subnet=subnet-b94e6893
 export SecurityGroup=sg-4e376835
 export KeyPairName=key_Gunjan
-export AMI=ai-fce3c696
+export AMI=ami-fce3c696
 export InstanceType=t2.micro
 export URL=https://github.com/gunjan-lal/repo2.git
