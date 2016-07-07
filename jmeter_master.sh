@@ -46,7 +46,7 @@ sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out=
 #create slaves
 bash -x /usr/share/jmeter/extras/slave.sh $i
 echo "-----------------Please wait while Slaves are configured!--------------------"
-#sleep 300
+sleep 300
 source /usr/share/jmeter/extras/testproperties.sh
 
 #read IP of all slaves

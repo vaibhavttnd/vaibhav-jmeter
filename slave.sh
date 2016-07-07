@@ -18,7 +18,7 @@ here
 
 > /usr/share/jmeter/extras/ip.txt
 > /usr/share/jmeter/extras/RunningInstances.txt
-echo `aws ec2 describe-instances --filters "Name=tag:Name,Values=Slave_$PROJECT" --output json | grep PublicIpAddress | cut -d\" -f4` > /usr/share/jmeter/extras/RunningInstances.txt
+echo `aws ec2 describe-instances --filters "Name=tag:Name,Values=Slave_$PROJECT" "Name=instance-state-name,Values=running" --output json | grep PublicIpAddress | cut -d\" -f4` > /usr/share/jmeter/extras/RunningInstances.txt
 Running=`cat /usr/share/jmeter/extras/RunningInstances.txt | wc -l`
 if [ $Running -gt 0 ]
 then
