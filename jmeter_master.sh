@@ -1,4 +1,5 @@
 #!/bin/bash
+PROJECT=GUNJAN;BUCKET_INSTALL=LoadTesting_Gunjan;BUCKET_RESULT=LoadTestingResults_Gunjan;
 set -e
 
 sudo apt-get update
@@ -41,7 +42,7 @@ bash -x slave.sh $i
 
 #read IP of all slaves
 IPList=$(cat ip.txt |awk 'FNR==1{print $0}')
-
+##############calculate no of users per slave
 #run test
 jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$i;
 ant -f /usr/share/jmeter/extras/conversion.xml

@@ -1,5 +1,6 @@
 export jmxFile=tothenew
 export OutputFile=testresult
-export loops=100,200,300
+export users=100,200,300
+export load=200
 export Threshold=95
 
