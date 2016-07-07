@@ -23,8 +23,8 @@ wget https://s3.amazonaws.com/$BUCKET_INSTALL/slave.sh -O /usr/share/jmeter/extr
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/instanceproperties.sh -O /usr/share/jmeter/extras/instanceproperties.sh
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/testproperties.sh -O /usr/share/jmeter/extras/testproperties.sh
 
-source instanceproperties.sh
-source testproperties.sh
+source /usr/share/jmeter/extras/instanceproperties.sh
+source /usr/share/jmeter/extras/testproperties.sh
 
 >slave.log
 IFS=','
@@ -39,12 +39,23 @@ sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out=
 
 #create slaves
 bash -x slave.sh $i
+echo "-----------------Please wait while Slaves are configured!--------------------"
+sleep 300
+source testproperties.sh
 
 #read IP of all slaves
 IPList=$(cat ip.txt |awk 'FNR==1{print $0}')
+
 ##############calculate no of users per slave
+UsersPerSlave=`expr $users / $ SlavesNeeded`
+R=`expr $users % $SlavesNeeded`
+if [ $R -ne 0 ]
+then
+	UsersPerSlave=`expr $UsersPerSlave + 1`
+fi
+
 #run test
-jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$i;
+jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$UsersPerSlave;
 ant -f /usr/share/jmeter/extras/conversion.xml
 
 #copy result file to S3
@@ -61,7 +72,7 @@ then
 	echo "Executing next test"
 else
 	echo "Aborting!"
-	exit
+	break
 fi
 done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"

@@ -12,10 +12,14 @@ sleep 5
 num=`expr $users + $Load - 1`
 SlavesNeeded=`expr $num / $Load`
 
+cat<<here >> testproperties.sh
+export SlavesNeeded=$SlavesNeeded
+here
+
 > ./ip.txt
 > ./RunningInstances.txt
-`aws ec2 describe-instances --filters "Name=tag:Name,Values=Slave_$PROJECT" --output json | grep PublicIpAddress | cut -d\" -f4` > RunningInstances.txt
-Running=`wc -l RunningInstances.txt`
+echo `aws ec2 describe-instances --filters "Name=tag:Name,Values=Slave_$PROJECT" --output json | grep PublicIpAddress | cut -d\" -f4` > RunningInstances.txt
+Running=`cat RunningInstances.txt | wc -l`
 if [ $Running -gt 0 ]
 then
 	cat RunningInstances.txt | while read LINE
@@ -35,6 +39,3 @@ echo -ne `aws ec2 describe-instances --instance-id $InstanceID --output json | g
 echo -ne "," >> ip.txt
 count=`expr $count - 1`
 done
-echo "---------------------------------------------------Wait while slaves are configured!-----------------------------------------------------------"
-sleep 300
-echo "---------------------------------------------------Slaves are running!----------------------------------------------------"

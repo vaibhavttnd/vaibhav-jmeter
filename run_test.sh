@@ -15,7 +15,7 @@ aws s3 cp ./instanceproperties.sh s3://$BUCKET_INSTALL/instanceproperties.sh --g
 aws s3 cp ./testproperties.sh s3://$BUCKET_INSTALL/testproperties.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 >jenkins.log
-bash -x launchJMeter.sh  >> jenkins.log 2>&1
+bash -x launchJMeter.sh | tee jenkins.log
 
 aws s3 cp jenkins.log s3://$BUCKET_RESULT/Logs/jenkins.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
