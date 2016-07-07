@@ -1,6 +1,6 @@
-export PROJECT=Gunjan
-export BUCKET_INSTALL=LoadTesting_Gunjan
-export BUCKET_RESULT=LoadTestingResults_Gunjan
+export PROJECT=TTND
+export BUCKET_INSTALL=LoadTesting_TTND
+export BUCKET_RESULT=LoadTestingResults_TTND
 export VPC=vpc-66890d01
 export Subnet=subnet-b94e6893
 export SecurityGroup=sg-4e376835
