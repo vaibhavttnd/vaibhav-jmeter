@@ -46,18 +46,18 @@ sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out=
 #create slaves
 bash -x /usr/share/jmeter/extras/slave.sh $i
 echo "-----------------Please wait while Slaves are configured!--------------------"
-sleep 300
+#sleep 300
 source /usr/share/jmeter/extras/testproperties.sh
 
 #read IP of all slaves
 IPList=$(cat /usr/share/jmeter/extras/ip.txt |awk 'FNR==1{print $0}')
 
 ##############calculate no of users per slave
-UsersPerSlave=`expr $users / $ SlavesNeeded`
-R=`expr $users % $SlavesNeeded`
+UsersPerSlave=$(expr $i / $SlavesNeeded)
+R=$(expr $i % $SlavesNeeded)
 if [ $R -ne 0 ]
 then
-	UsersPerSlave=`expr $UsersPerSlave + 1`
+	UsersPerSlave=$(expr $UsersPerSlave + 1)
 fi
 
 #run test
@@ -84,4 +84,3 @@ done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
 aws s3 cp /var/log/cloud-init-output.log s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
-  
