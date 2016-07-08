@@ -1,4 +1,8 @@
 #!/bin/bash
+source /usr/share/jmeter/extras/instanceproperties.sh
+source /usr/share/jmeter/extras/testproperties.sh
+
+: '
 PROJECT=TTND;BUCKET_INSTALL=LoadTesting_TTND;BUCKET_RESULT=LoadTestingResults_TTND;
 
 sudo apt-get update
@@ -10,7 +14,7 @@ sudo apt-get install ant -y
 sudo apt-get install awscli -y
 
 #remove loopback address from jmeter.properties
-sudo sed -i 's/remote_hosts=127/#remote_hosts=127/' /usr/share/jmeter/bin/jmeter.properties
+sudo sed -i s/remote_hosts=127/#remote_hosts=127/ /usr/share/jmeter/bin/jmeter.properties
 
 sudo mkdir /usr/share/jmeter/extras
 
@@ -21,6 +25,7 @@ wget https://s3.amazonaws.com/$BUCKET_INSTALL/configScriptSlave -O /usr/share/jm
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/slave.sh -O /usr/share/jmeter/extras/slave.sh
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/instanceproperties.sh -O /usr/share/jmeter/extras/instanceproperties.sh
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/testproperties.sh -O /usr/share/jmeter/extras/testproperties.sh
+wget https://s3.amazonaws.com/$BUCKET_INSTALL/jmeter_master.sh -O /usr/share/jmeter/extras/jmeter_master.sh
 
 source /usr/share/jmeter/extras/instanceproperties.sh
 source /usr/share/jmeter/extras/testproperties.sh
@@ -31,7 +36,7 @@ cat<<here >> ~/.aws/config
 region=us-east-1
 output=json
 here
-
+'
 >slave.log
 IFS=','
 array=( $users )
@@ -83,3 +88,10 @@ fi
 done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
 aws s3 cp "/var/log/cloud-init-output.log" s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+
+#####terminating all slave instances
+cat /usr/share/jmeter/extras/RunningInstances.txt | while read LINE
+do
+        ID=$(aws ec2 describe-instances --filters "Name=ip-address,Values=$LINE" --query "Reservations[*].Instances.InstanceId" --output text)
+        aws ec2 terminate-instances --instance-ids $ID
+done

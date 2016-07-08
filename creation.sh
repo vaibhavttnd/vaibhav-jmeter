@@ -46,9 +46,7 @@ then
 	echo -ne "Enter name of Security Group: "
 	read SG
 	SecurityGroup=$(aws ec2 create-security-group --group-name $SG --description "Load Testing Security Group" --vpc-id $VPC | grep -o "sg-[0-9,a-z,A-Z]*")
-	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 80 --cidr 0.0.0.0/0
-	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0
-	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 8080 --cidr 0.0.0.0/0
+	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol all --cidr 0.0.0.0/0	
 	echo "Security Group created, Security Group ID= "$SecurityGroup
 else
 	echo -ne "Enter Security Group Id: "

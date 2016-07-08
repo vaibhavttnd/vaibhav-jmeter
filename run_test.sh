@@ -13,6 +13,7 @@ aws s3 cp ./configScriptSlave s3://$BUCKET_INSTALL/configScriptSlave --grants re
 aws s3 cp ./slave.sh s3://$BUCKET_INSTALL/slave.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 aws s3 cp ./instanceproperties.sh s3://$BUCKET_INSTALL/instanceproperties.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 aws s3 cp ./testproperties.sh s3://$BUCKET_INSTALL/testproperties.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp ./jmeter_master.sh s3://$BUCKET_INSTALL/jmeter_master.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 >jenkins.log
 bash -x launchJMeter.sh | tee jenkins.log

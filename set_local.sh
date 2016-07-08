@@ -31,9 +31,9 @@ export BUCKET_RESULT=LoadTestingResults_$PROJECT
 here
 
 #sed -i '/PROJECT=/d' jenkins_install.sh
-sed -i '/PROJECT=/d' jmeter_master.sh
+sed -i '/PROJECT=/d' configScriptMaster.sh
 #sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT" jenkins_install.sh
-sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT" jmeter_master.sh
+sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT" configScriptMaster.sh
 
 #aws s3api create-bucket --bucket $BUCKET_INSTALL
 #aws s3 cp ./conversion.xml  s3://$BUCKET_INSTALL/conversion.xml  --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
