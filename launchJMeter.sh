@@ -3,7 +3,7 @@ source instanceproperties.sh
 source testproperties.sh
 
 echo "------------------Creating JMETER Master-----------------------------"
-
+>JMeterKey.pem
 ## create key pair for JMeter Master
 aws ec2 create-key-pair --key-name JMeterKey --output text | cut -d- -f2-8 > JMeterKey.pem
 sleep 10
@@ -23,7 +23,7 @@ echo "Done!"
 ########### ssh into master
 echo "About to run tests!"
 SSH_COMMAND="bash -x /usr/share/jmeter/extras/jmeter_master.sh"
-ssh -i ./JMeterKey.pem ubuntu@$MasterIP "${SSH_COMMAND}"
+sudo ssh -i JMeterKey.pem ubuntu@$MasterIP "${SSH_COMMAND}"
 
 aws ec2 stop-instances --instance-ids $InstanceID
 ######display that tests are done
