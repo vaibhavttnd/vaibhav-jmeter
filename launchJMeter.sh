@@ -22,8 +22,8 @@ echo "Done!"
 
 ########### ssh into master
 echo "About to run tests!"
-SSH_COMMAND="bash -x /usr/share/jmeter/extras/jmeter_master.sh"
-sudo ssh -i JMeterKey.pem ubuntu@$MasterIP "${SSH_COMMAND}"
+#SSH_COMMAND="bash -x /usr/share/jmeter/extras/jmeter_master.sh"
+sudo ssh -i JMeterKey.pem ubuntu@$MasterIP -t "bash -x /usr/share/jmeter/extras/jmeter_master.sh"
 
 aws ec2 stop-instances --instance-ids $InstanceID
 ######display that tests are done
