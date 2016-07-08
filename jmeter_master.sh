@@ -65,7 +65,7 @@ jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outpu
 ant -f /usr/share/jmeter/extras/conversion.xml
 
 #copy result file to S3
-aws s3 cp /usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+`aws s3 cp /usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers`
 
 #check for success threshold
 Success=$(grep -o -m 1 '[0-9][0-9]*.[0-9][0-9]%' outputFile_$i.html | cut -d. -f1)
