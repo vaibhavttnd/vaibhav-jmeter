@@ -65,13 +65,13 @@ jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outpu
 ant -f /usr/share/jmeter/extras/conversion.xml
 
 #copy result file to S3
-echo "Only backtick"
-aws s3 cp "/usr/share/jmeter/extras/outputFile_$i.html" s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+#echo "Only backtick"
+aws s3 cp "//usr/share/jmeter/extras/outputFile_$i.html" s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 #echo "only 2 slash"
 #aws s3 cp //usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 #echo "backtick and 
 #`aws s3 cp //usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers`
-aws s3 cp /usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp //usr/share/jmeter/extras/outputFile_"$i".html s3://$BUCKET_RESULT/Result/$OutputFile"_"$i".html" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 #check for success threshold
 Success=$(grep -o -m 1 '[0-9][0-9]*.[0-9][0-9]%' outputFile_$i.html | cut -d. -f1)
 echo "No. of users: "$i
@@ -87,5 +87,5 @@ else
 fi
 done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
-aws s3 cp /var/log/cloud-init-output.log s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-
+aws s3 cp "//var/log/cloud-init-output.log" s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp //var/log/cloud-init-output.log s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
