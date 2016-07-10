@@ -3,9 +3,9 @@ source instanceproperties.sh
 source testproperties.sh
 
 echo "------------------Creating JMETER Master-----------------------------"
->JMeterKey.pem
+>./JMeterKey.pem
 ## create key pair for JMeter Master
-aws ec2 create-key-pair --key-name JMeterKey --query 'KeyMaterial' --output text > JMeterKey.pem
+aws ec2 create-key-pair --key-name JMeterKey --query 'KeyMaterial' --output text > ./JMeterKey.pem
 
 sleep 10
 InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name JMeterKey --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://configScriptMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
