@@ -26,9 +26,10 @@ wget https://s3.amazonaws.com/$BUCKET_INSTALL/jmeter_master.sh -O /usr/share/jme
 
 source /usr/share/jmeter/extras/instanceproperties.sh
 source /usr/share/jmeter/extras/testproperties.sh
-mkdir ~/.aws
+mkdir /home/ubuntu/.aws
+chown -R ubuntu:ubuntu /home/ubuntu/.aws
 > ~/.aws/config
-cat<<here >> ~/.aws/config
+cat<<here >> /home/ubuntu/.aws/config
 [default]
 region=us-east-1
 output=json
