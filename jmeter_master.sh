@@ -41,7 +41,7 @@ aws s3 cp "/usr/share/jmeter/extras/outputFile_$i.html" s3://$BUCKET_RESULT/Resu
 Success=$(grep -o -m 1 '[0-9][0-9]*.[0-9][0-9]%' /usr/share/jmeter/extras/outputFile_$i.html | cut -d. -f1)
 echo "No. of users: "$i
 echo "Success Rate: "$Success
-echo https://s3.amazonaws.com/$BUCKET_RESULT/$OutputFile"_"$i".html"
+echo https://s3.amazonaws.com/$BUCKET_RESULT/Result/$OutputFile"_"$i".html"
 
 if [ $Success -ge $Threshold ]
 then

@@ -25,7 +25,8 @@ Steps:
 
 1. In jmeter, under Thread Properties, set the value of 'Number of Threads (users)' as '${__P(users)}. Set 'Loop Count' as '1'.
 
-2. Copy all the files from https://github.com/gunjan-lal/repo2.git/ to your own git repository. Upload your .jmx file in this git repository.
+2. Create a new Git repository
+Copy all the files from https://github.com/gunjan-lal/repo2.git/ to your own git repository. Upload your .jmx file in this git repository.
 Clone your git repository into your local system.
 	git clone <URL>
 The repository will be cloned into a new folder in your present working directory.
@@ -71,6 +72,7 @@ When the server is configured, the Jenkins administrator password will be displa
 	users: (comma separated list of virtual users for the Load Test)
 	Load: (Maximum load, i.e., maximum number of users for one slave)
 	Threshold: (Success threshold for the Load Test)
+	JMeterKey: (Name of the Key Pair to be used for the JMeter master and slaves, this key will be created)
 Push this file into your git repository.
 	git add testproperties.sh
 	git commit -m "testproperties"
@@ -92,7 +94,7 @@ Push this file into your git repository.
 		bash run_test.sh
 	This will execute the script 'run_test.sh' which creates JMeter master and slave servers to run the test.
 	In the end, it uploads the HTML report to the S3 bucket.
-	f) Build the job
+	f) Save and Build the job
 After the job is completed, go to the console output of the Build.
 
 9. This job follows these steps:
