@@ -1,84 +1,106 @@
 The following scripts are used to automate Load Testing using jmeter, ANT and Jenkins:
 	awscliconfig.sh
+	configScriptMaster.sh
 	configScriptSlave
 	conversion.xml
+	creation.sh
+	instanceproperties.sh
 	jenkins_install.sh
 	jmeter_master.sh
 	jmeter-results-detail-report_21.xsl
-	launch_instance.sh
+	launchJenkins.sh
+	launchJMeter.sh
 	LoadTesting-Permissions.json
+	LoadTesting-README.txt
 	LoadTesting-Trust.json
 	masterscript.sh
 	properties.sh
 	run_test.sh
+	set_local.sh
 	slave.sh
+	testproperties.sh
 	user_data_file.sh
-	LoadTesting-README.txt
 
 Steps:
 
-1. In jmeter, under Thread Properties, set the value of 'Number of Threads (users)' as '${__P(users)}. Set 'Loop Count' as '${__P(loops)}'.
+1. In jmeter, under Thread Properties, set the value of 'Number of Threads (users)' as '${__P(users)}. Set 'Loop Count' as '1'.
 
-2. Copy all the files from https://github.com/gunjan-lal/jenkins_masterslave.git/ to your own git repository.  
+2. Copy all the files from https://github.com/gunjan-lal/jenkins_masterslave.git/ to your own git repository. Upload your .jmx file in this git repository.
 Clone your git repository into your local system.
-git clone <URL>
-The repository will be cloned into a folder 'jenkins_masterslave' in your present working directory.
+	git clone <URL>
+The repository will be cloned into a new folder in your present working directory.
 The .jmx file should also be present in this git repository. 
 
-3. cd jenkins_masterslave
+3. Change your directory into the one just created.
 
 4. Create an empty Git repository: git init
 
-5. Execute the masterscript.sh: bash masterscript.sh
-This script creates a new S3 bucket and takes as input the names of Project, the .jmx file and the html reports which will be saved into the S3 bucket.
-        #Enter the name of the Project
-        #Enter the name of the jmx file (without .jmx)
-	#Enter the number of users for the load test
-	#Enter the number of loops for the load test
-        Enter the success threshold for the load test
-	#Enter the name of the output HTML file (without .html)	
-It also installs awscli on your system and configures aws by taking your credentials as parameters. This may take a few minutes.
+5. Execute the set_local.sh: bash set_local.sh
+This script calls awscliconfig.sh which configures AWS CLI on your local system by taking your credentials as parameters. This takes a few minutes.
 	#Enter Access Key
 	#Enter Secret Access Key
 	#Enter region
 	#Enter output format
+It also takes the Project Name as a parameter. The project name will not be accepted if a bucket of the name already exists.
+	#Enter the name of the Project
 
-6. Execute launch_instance.sh: bash launch_instance.sh
+Then, creation.sh is executed, which creates a new VPC, Internet Gateway, Route Table, Subnet, Security Group and a key pair. IDs of existing resources can also be provided.
+	#Create VPC (y/n)?
+	if yes, #Enter CIDR Block
+	if no, #Enter VPC ID
+	#Create Subnet (y/n)?
+	if yes, #Enter CIDR Block
+	if no, #Enter Subnet ID
+	#Create Security Group (y/n)?
+	#Enter name of Security Group
+	#Create Key Pair (y/n)?
+	#Enter name of Key pair
+
+Next, launchJenkins.sh is called which takes the AMI ID and the Instance type as parameters and creates a new IAM Role, Instance Profile and a Jenkins server.
 	#Enter AMI ID
 	#Enter Instance Type
-	#Enter Subnet ID
-	#Enter Security Group ID
-	#Enter Key Pair Name
-	#Enter Number of slave instances to be created
-	#Enter the URL of your Git Repository
-This scripts takes the Master Instance configuration and the number of slaves as input and creates a configured master instance.
-It also prints the IP of the created instance.
-This may take a few minutes.
-The Security Group should have the ports 22,80 and 8080 open.
+	#Enter URL of the Git Repository
+	#Enter your GitHub credentials
+The Public IP of the server is displayed on the screen.
+Wait while Jenkins Master Instance is configured. This may take a few minutes.
+When the server is configured, the Jenkins administrator password will be displayed. Access the Public IP through your browser and enter the password.
 
-7. As soon as the Master Instance is created, access the 8080 port of the Master Instance through your browser. This should display the Jenkins Dashboard running on the Master.
+5. Edit the testproperties.sh present in the same directory according to your test parameters.
+	jmxFile: (name of the jmx file, without .jmx)
+	OutputFile: (name of the output file, without .html)
+	users: (comma separated list of virtual users for the Load Test)
+	Load: (Maximum load, i.e., maximum number of users for one slave)
+	Threshold: (Success threshold for the Load Test)
+Push this file into your git repository.
+	git add testproperties.sh
+	git commit -m "testproperties"
+	git push
+	#Enter your GitHub credentials
 
-8. Go to Manage Jenkins->Manage Plugins and download the following plugins:
-	GitHub Authentication Plugin
-	GitHub Plugin
-Click on 'Install without restart'.
+6. Click on 'Install Suggested Plugins' and then create an administrator user. This user can be used to login to Jenkins anytime.
 
-9. Go to Manage Jenkins->Configure System. Set '# of executors' to 1. Click Save.
+7. On the Jenkins Dashboard, go to Manage Jenkins->Configure System. Set '# of executors' to 1. Click Save.
 
-10. Create a new job on the Jenkins Dashboard by following these steps:
+8. Create a new job on the Jenkins Dashboard by following these steps:
 	a) Click on 'New Item' on the Jenkins Dashboard. Create a Freestyle Project and enter a name. Click OK.
 	b) Check GitHub Project and enter the URL of git repository.
-	c) Under Advanced Project Options, enter custom workspace as '/usr/share/jmeter/extras/'.
-	d) Under Source Code Management, check Git and enter the repository URL and your credentials.
-	e) Select 'Poll SCM' under 'Build Triggers' and enter 'H/5 * * * *' as the Schedule. This sets up the poll to occur every 5 minutes.
+	c) Under Source Code Management, check Git and enter the repository URL and your credentials.
+	d) Select 'Poll SCM' under 'Build Triggers' and enter 'H/5 * * * *' as the Schedule. This sets up the poll to occur every 5 minutes.
 	In case there is a new commit, Build is triggered.
-	f) Add a new Build step as 'Execute Shell' and enter the following commands:
+	e) Add a new Build step as 'Execute Shell' and enter the following commands:
 		#!/bin/bash
 		bash run_test.sh
-	This will execute the script 'run_test.sh' which creates slave servers and runs the test.
+	This will execute the script 'run_test.sh' which creates JMeter master and slave servers to run the test.
 	In the end, it uploads the HTML report to the S3 bucket.
-	g) Build the job
-
-11. This job creates slave instances and runs Load Test on the master slave setup. The configuration of slaves takes a few minutes.
+	f) Build the job
 After the job is completed, go to the console output of the Build.
-The URL of the HTML report and the Success Rate of the test is displayed. The report can be found in the S3 bucket.
+
+9. This job follows these steps:
+	a) Creates two S3 Buckets, one for installation files and the other for Test reports and logs.
+	b) Creates the JMeter master server and prints its Public IP.
+	c) Calculates the number of slaves to be created according to the number of slaves already running.
+	d) Calculates the number of users for each slave.
+	e) Executes each test according to the parameters specified in testproperties.sh
+	f) Each test is checked for its Success Rate. The job is aborted if any test fails to pass the Threshold.
+	
+10. The URL of the HTML report and the Success Rate of the test is displayed. The report can be found in the S3 bucket.
