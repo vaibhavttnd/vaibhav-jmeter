@@ -33,5 +33,7 @@ echo "Master IP= "$(aws ec2 describe-instances --instance-id $InstanceID --outpu
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Master_Jenkins_$PROJECT
 echo "Wait while Jenkins Master Instance is configured"
 sleep 300
+echo -ne "Your Jenkins Administrator Password is: "
+ssh -i $KeyPairName.pem -o "StrictHostKeyChecking no" ubuntu@$MasterIP -t "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
 echo "Done!"
 

@@ -59,8 +59,9 @@ echo "Enter name of Key pair: "
 read KeyPairName
 if [ $create_key == 'y' ]
 then
-	echo "Save the key in "$KeyPairName".pem"
-	aws ec2 create-key-pair --key-name $KeyPairName
+	echo "Saved the key in "$KeyPairName".pem"
+	aws ec2 create-key-pair --key-name $KeyPairName --query 'KeyMaterial' --output text > ./$KeyPairName.pem
+	chmod 400 ./$KeyPairName.pem
 fi
 
 cat <<here >> instanceproperties.sh
