@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 ###############FIRST SCRIPT TO BE RUN
 
@@ -20,7 +19,8 @@ while [ true ]
 do
         echo -ne "Enter project name: "
         read PROJECT
-        if [ `aws s3 ls | grep LoadTesting_$PROJECT` ]
+	aws s3 ls | grep LoadTesting_$PROJECT
+        if [ $? -eq 0 ]
         then
                 echo "Bucket already exists"
         else
@@ -47,7 +47,7 @@ echo "About to launch Jenkins Master Instance!"
 sleep 5
 
 #call script to create aws resources
-bash creationAWSresource.sh | tee /tmp/LoadTesting.log
+bash creationAWSresources.sh | tee /tmp/LoadTesting.log
 
 #call script to launch jenkins master instance
 bash launchJenkins.sh | tee /tmp/LoadTesting.log

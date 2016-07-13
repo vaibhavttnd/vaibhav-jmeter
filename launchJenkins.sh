@@ -19,7 +19,7 @@ export URL=$URL
 here
 
 #push to git
-git add EC2instanceproperties.sh
+git add EC2instanceproperties.sh configScriptMaster.sh
 git commit -m "EC2instanceproperties.sh"
 git push $URL
 
