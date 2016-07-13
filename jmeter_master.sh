@@ -61,7 +61,8 @@ aws s3 cp "/var/log/cloud-init-output.log" s3://$BUCKET_RESULT/Logs/jmeter_logs.
 aws s3 cp "slave.log" s3://$BUCKET_RESULT/Logs/slave.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 #####terminating all slave instances
-cat /usr/share/jmeter/extras/RunningInstances.txt | while read LINE
+sed -i 's/,/ /g' /usr/share/jmeter/extras/ip.txt
+cat /usr/share/jmeter/extras/ip.txt | while read LINE
 do
         ID=$(aws ec2 describe-instances --filters "Name=ip-address,Values=$LINE" --query "Reservations[*].Instances.InstanceId" --output text)
         aws ec2 terminate-instances --instance-ids $ID
