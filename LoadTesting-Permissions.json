@@ -1,24 +1,39 @@
 {
-  "Version": "2012-10-17",  
-"Statement": [
-    {
-      "Action": "s3:*",
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Action": "ec2:*",
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-    {
-       "Effect": "Allow",
-        "Action": [
-               "iam:GenerateCredentialReport",
-               "iam:Get*",
-               "iam:List*"
-                  ],
-           "Resource": "*"
-       }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::LoadTesting_*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::LoadTestingResults_*"
+        },
+        {
+            "Action": "ec2:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:GenerateCredentialReport",
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
