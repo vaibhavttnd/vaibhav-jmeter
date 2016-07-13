@@ -1,4 +1,7 @@
 #/bin/bash
+
+###########TO LAUNCH JMETER MASTER INSTANCE AND SSH INTO IT TO RUN JMETER TESTS
+
 source EC2instanceproperties.sh
 source JMetertestproperties.sh
 
@@ -26,6 +29,7 @@ echo "About to run tests!"
 chmod 400 $JMeterKey.pem
 ssh -i $JMeterKey.pem -o "StrictHostKeyChecking no" ubuntu@$MasterIP -t "sudo bash -x /usr/share/jmeter/extras/jmeter_master.sh"
 
+#terminate jmeter master instance
 aws ec2 terminate-instances --instance-ids $InstanceID
 
 echo "End of tests!"

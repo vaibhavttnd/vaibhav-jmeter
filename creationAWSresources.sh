@@ -1,4 +1,7 @@
 #!/bin/bash
+
+######## TO CREATE VPC, IGW, ROUTE TABLE, SUBNET, SECURITY GROUP, KEYPAIR
+
 source EC2instanceproperties.sh
 
 echo -ne "Create VPC (y/n)? "

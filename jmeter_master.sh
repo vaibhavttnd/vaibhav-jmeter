@@ -1,4 +1,7 @@
 #!/bin/bash
+
+########EXECUTED ON JMETER MASTER SERVER TO RUN ALL THE JMETER TESTS
+
 source /usr/share/jmeter/extras/EC2instanceproperties.sh
 source /usr/share/jmeter/extras/JMetertestproperties.sh
 
@@ -10,11 +13,13 @@ array=( $users )
 for i in ${array[@]}
 do
 >/usr/share/jmeter/extras/outputFile_$i.xml
+
+#write name of output file in ant build file
 sed -i '/<xslt/d' /usr/share/jmeter/extras/conversion.xml
 sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out="/usr/share/jmeter/extras/outputFile_'$i'.html"' /usr/share/jmeter/extras/conversion.xml
 
 #create slaves
-bash -x /usr/share/jmeter/extras/createSlave.sh $i
+bash -x /usr/share/jmeter/extras/createSlave.sh $i | tee slave.log
 echo "-----------------Please wait while Slaves are configured!--------------------"
 sleep 300
 source /usr/share/jmeter/extras/JMetertestproperties.sh
@@ -22,7 +27,7 @@ source /usr/share/jmeter/extras/JMetertestproperties.sh
 #read IP of all slaves
 IPList=$(cat /usr/share/jmeter/extras/ip.txt |awk 'FNR==1{print $0}')
 
-##############calculate no of users per slave
+##############calculate no of users per slave=> ceil(user/slaves)
 UsersPerSlave=$(expr $i / $SlavesNeeded)
 R=$(expr $i % $SlavesNeeded)
 if [ $R -ne 0 ]
@@ -53,6 +58,7 @@ fi
 done
 echo "-----------------------------------------FINISHED--------------------------------------------------------------"
 aws s3 cp "/var/log/cloud-init-output.log" s3://$BUCKET_RESULT/Logs/jmeter_logs.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp "slave.log" s3://$BUCKET_RESULT/Logs/slave.log --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 #####terminating all slave instances
 cat /usr/share/jmeter/extras/RunningInstances.txt | while read LINE

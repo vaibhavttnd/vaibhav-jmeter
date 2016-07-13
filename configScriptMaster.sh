@@ -1,6 +1,8 @@
 #!/bin/bash
 PROJECT=TTND;BUCKET_INSTALL=LoadTesting_TTND;BUCKET_RESULT=LoadTestingResults_TTND;
 
+############# PASSED AS USER DATA TO JMETER MASTER SERVER TO INSTALL JMETER & AWSCLI AND DOWNLOAD ALL FILES FROM S3
+
 sudo apt-get update
 sudo apt-get install openjdk-7-jdk --fix-missing -yy
 
