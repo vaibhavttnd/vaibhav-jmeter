@@ -22,7 +22,7 @@ Steps:
 
 1. In your jmx file, under Thread Properties, set the value of 'Number of Threads (users)' as '${__P(users)}. Set 'Loop Count' as '1'.
 
-2. Create a new Git repository and import code from https://github.com/gunjan-lal/loadtest.git to your own git repository.
+2. Create a new Git repository and import code from https://github.com/gunjan-lal/loadtesting-demo.git to your own git repository.
 Also, upload your .jmx file in your git repository.
 Clone your git repository into your local system.
 	git clone <URL>
