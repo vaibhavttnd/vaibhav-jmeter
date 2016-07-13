@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source instanceproperties.sh
+source EC2instanceproperties.sh
 
 echo -n "Enter AMI ID: "
 read AMI
@@ -9,14 +9,14 @@ read InstanceType
 echo -n "Enter URL of the Git Repository: "
 read URL
 
-cat <<here >> instanceproperties.sh
+cat <<here >> EC2instanceproperties.sh
 export AMI=$AMI
 export InstanceType=$InstanceType
 export URL=$URL
 here
 
-git add instanceproperties.sh
-git commit -m "instanceproperties.sh"
+git add EC2instanceproperties.sh
+git commit -m "EC2instanceproperties.sh"
 git push $URL
 
 aws iam create-role --role-name LoadTesting-Role --assume-role-policy-document file://LoadTesting-Trust.json

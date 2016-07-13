@@ -1,10 +1,10 @@
 The following scripts are used to automate Load Testing using jmeter, ANT and Jenkins:
 	awscliconfig.sh
 	configScriptMaster.sh
-	configScriptSlave
+	configScriptSlave.sh
 	conversion.xml
-	creation.sh
-	instanceproperties.sh
+	creationAWSresources.sh
+	EC2instanceproperties.sh
 	jenkins_install.sh
 	jmeter_master.sh
 	jmeter-results-detail-report_21.xsl
@@ -14,9 +14,9 @@ The following scripts are used to automate Load Testing using jmeter, ANT and Je
 	LoadTesting-README.txt
 	LoadTesting-Trust.json
 	masterscript.sh
-	run_test.sh
-	slave.sh
-	testproperties.sh
+	runJMetertest.sh
+	createSlave.sh
+	JMetertestproperties.sh
 
 Steps:
 
@@ -41,7 +41,7 @@ This script calls awscliconfig.sh which configures AWS CLI on your local system 
 It also takes the Project Name as a parameter. The project name will not be accepted if a bucket of the name already exists.
 	#Enter the name of the Project
 
-Then, creation.sh is executed, which creates a new VPC, Internet Gateway, Route Table, Subnet, Security Group and a key pair. IDs of existing resources can also be provided.
+Then, creationAWSresources.sh is executed, which creates a new VPC, Internet Gateway, Route Table, Subnet, Security Group and a key pair. IDs of existing resources can also be provided.
 	#Create VPC (y/n)?
 		if yes, #Enter CIDR Block
 		if no, #Enter VPC ID
@@ -62,7 +62,7 @@ The Public IP of the server is displayed on the screen.
 Wait while Jenkins Master Instance is configured. This may take a few minutes.
 When the server is configured, the Jenkins administrator password will be displayed. Access the Public IP through your browser and enter the password.
 
-5. Edit the testproperties.sh present in the same directory according to your test parameters.
+5. Edit the JMetertestproperties.sh present in the same directory according to your test parameters.
 	jmxFile: (name of the jmx file, without .jmx)
 	OutputFile: (name of the output file, without .html)
 	users: (comma separated list of virtual users for the Load Test)
@@ -71,8 +71,8 @@ When the server is configured, the Jenkins administrator password will be displa
 	JMeterKey: (Name of the Key Pair to be used for the JMeter master and slaves, this key will be created)
 
 Push this file into your git repository.
-	git add testproperties.sh
-	git commit -m "testproperties"
+	git add JMetertestproperties.sh
+	git commit -m "JMetertestproperties"
 	git push
 	#Enter your GitHub credentials
 
@@ -88,8 +88,8 @@ Push this file into your git repository.
 	In case there is a new commit, Build is triggered.
 	e) Add a new Build step as 'Execute Shell' and enter the following commands:
 		#!/bin/bash
-		bash run_test.sh
-	This will execute the script 'run_test.sh' which creates JMeter master and slave servers to run the test.
+		bash runJMetertest.sh
+	This will execute the script 'runJMetertest.sh' which creates JMeter master and slave servers to run the test.
 	In the end, it uploads the HTML report to the S3 bucket.
 	f) Save and Build the job
 After the job is completed, go to the console output of the Build.
@@ -99,7 +99,7 @@ After the job is completed, go to the console output of the Build.
 	b) Creates the JMeter master server and prints its Public IP.
 	c) Calculates the number of slaves to be created according to the number of slaves already running.
 	d) Calculates the number of users for each slave.
-	e) Executes each test according to the parameters specified in testproperties.sh
+	e) Executes each test according to the parameters specified in JMetertestproperties.sh
 	f) Each test is checked for its Success Rate. The job is aborted if any test fails to pass the Threshold.
 	
 10. The URL of the HTML report and the Success Rate of the test is displayed.

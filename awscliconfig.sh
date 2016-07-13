@@ -44,3 +44,11 @@ region=$Region
 output=$Output
 here
 here1
+
+sed -i '/Region=/d' configScriptMaster.sh
+sed -i "/#!\/bin\/bash/a Region=$Region;Output=$Output;" configScriptMaster.sh
+
+cat <<here >> EC2instanceproperties.sh
+export Region=$Region
+export Output=$Output
+here

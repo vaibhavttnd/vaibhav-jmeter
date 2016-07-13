@@ -7,6 +7,7 @@ touch /tmp/LoadTesting.log
 echo "About to configure aws cli!"
 sleep 5
 
+> EC2instanceproperties.sh
 bash awscliconfig.sh | tee /tmp/LoadTesting.log
 
 while [ true ]
@@ -23,26 +24,16 @@ done
 BUCKET_INSTALL="LoadTesting"_$PROJECT
 BUCKET_RESULT="LoadTestingResults"_$PROJECT
 
-> instanceproperties.sh
-cat <<here >> instanceproperties.sh
+cat <<here >> EC2instanceproperties.sh
 export PROJECT=$PROJECT
 export BUCKET_INSTALL=LoadTesting_$PROJECT
 export BUCKET_RESULT=LoadTestingResults_$PROJECT
 here
 
-#sed -i '/PROJECT=/d' jenkins_install.sh
 sed -i '/PROJECT=/d' configScriptMaster.sh
-#sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT" jenkins_install.sh
-sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT" configScriptMaster.sh
-
-#aws s3api create-bucket --bucket $BUCKET_INSTALL
-#aws s3 cp ./conversion.xml  s3://$BUCKET_INSTALL/conversion.xml  --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-#aws s3 cp ./jmeter-results-detail-report_21.xsl s3://$BUCKET_INSTALL/jmeter-results-detail-report_21.xsl --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-#aws s3 cp ./File.jmx s3://$BUCKET_INSTALL/File.jmx --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-#aws s3 cp ./configScriptSlave s3://$BUCKET_INSTALL/configScriptSlave --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-#aws s3 cp ./slave.sh s3://$BUCKET_INSTALL/slave.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT;" configScriptMaster.sh
 
 echo "About to launch Jenkins Master Instance!"
 sleep 5
-bash creation.sh | tee /tmp/LoadTesting.log
+bash creationAWSresource.sh | tee /tmp/LoadTesting.log
 bash launchJenkins.sh | tee /tmp/LoadTesting.log

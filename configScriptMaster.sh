@@ -18,20 +18,20 @@ sudo mkdir /usr/share/jmeter/extras
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/conversion.xml -O /usr/share/jmeter/extras/conversion.xml
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/jmeter-results-detail-report_21.xsl -O /usr/share/jmeter/extras/jmeter-results-detail-report_21.xsl
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/File.jmx -O /usr/share/jmeter/extras/File.jmx
-wget https://s3.amazonaws.com/$BUCKET_INSTALL/configScriptSlave -O /usr/share/jmeter/extras/configScriptSlave
-wget https://s3.amazonaws.com/$BUCKET_INSTALL/slave.sh -O /usr/share/jmeter/extras/slave.sh
-wget https://s3.amazonaws.com/$BUCKET_INSTALL/instanceproperties.sh -O /usr/share/jmeter/extras/instanceproperties.sh
-wget https://s3.amazonaws.com/$BUCKET_INSTALL/testproperties.sh -O /usr/share/jmeter/extras/testproperties.sh
+wget https://s3.amazonaws.com/$BUCKET_INSTALL/configScriptSlave.sh -O /usr/share/jmeter/extras/configScriptSlave.sh
+wget https://s3.amazonaws.com/$BUCKET_INSTALL/createSlave.sh -O /usr/share/jmeter/extras/createSlave.sh
+wget https://s3.amazonaws.com/$BUCKET_INSTALL/EC2instanceproperties.sh -O /usr/share/jmeter/extras/EC2instanceproperties.sh
+wget https://s3.amazonaws.com/$BUCKET_INSTALL/JMetertestproperties.sh -O /usr/share/jmeter/extras/JMetertestproperties.sh
 wget https://s3.amazonaws.com/$BUCKET_INSTALL/jmeter_master.sh -O /usr/share/jmeter/extras/jmeter_master.sh
 
-source /usr/share/jmeter/extras/instanceproperties.sh
-source /usr/share/jmeter/extras/testproperties.sh
+source /usr/share/jmeter/extras/EC2instanceproperties.sh
+source /usr/share/jmeter/extras/JMetertestproperties.sh
 mkdir /home/ubuntu/.aws
 chown -R ubuntu:ubuntu /home/ubuntu/.aws
 > ~/.aws/config
 cat<<here >> /home/ubuntu/.aws/config
 [default]
-region=us-east-1
-output=json
+region=$Region
+output=$Output
 here
 

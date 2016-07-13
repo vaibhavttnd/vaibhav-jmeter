@@ -1,6 +1,6 @@
 #/bin/bash
-source instanceproperties.sh
-source testproperties.sh
+source EC2instanceproperties.sh
+source JMetertestproperties.sh
 
 echo "------------------Creating JMETER Master-----------------------------"
 >$JMeterKey.pem

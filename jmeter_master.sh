@@ -1,6 +1,6 @@
 #!/bin/bash
-source /usr/share/jmeter/extras/instanceproperties.sh
-source /usr/share/jmeter/extras/testproperties.sh
+source /usr/share/jmeter/extras/EC2instanceproperties.sh
+source /usr/share/jmeter/extras/JMetertestproperties.sh
 
 >slave.log
 IFS=','
@@ -14,10 +14,10 @@ sed -i '/<xslt/d' /usr/share/jmeter/extras/conversion.xml
 sed -i '/<project/a <xslt in="/usr/share/jmeter/extras/outputFile_'$i'.xml" out="/usr/share/jmeter/extras/outputFile_'$i'.html"' /usr/share/jmeter/extras/conversion.xml
 
 #create slaves
-bash -x /usr/share/jmeter/extras/slave.sh $i
+bash -x /usr/share/jmeter/extras/createSlave.sh $i
 echo "-----------------Please wait while Slaves are configured!--------------------"
 sleep 300
-source /usr/share/jmeter/extras/testproperties.sh
+source /usr/share/jmeter/extras/JMetertestproperties.sh
 
 #read IP of all slaves
 IPList=$(cat /usr/share/jmeter/extras/ip.txt |awk 'FNR==1{print $0}')

@@ -1,7 +1,5 @@
 #!/bin/bash
-source instanceproperties.sh
-#aws s3api create-bucket --bucket $BUCKET_INSTALL
-#aws s3 cp ./jmeter_master.sh s3://$BUCKET_INSTALL/jmeter_master.sh --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+source EC2instanceproperties.sh
 
 echo -ne "Create VPC (y/n)? "
 read create_VPC
@@ -64,7 +62,7 @@ then
 	chmod 400 ./$KeyPairName.pem
 fi
 
-cat <<here >> instanceproperties.sh
+cat <<here >> EC2instanceproperties.sh
 export VPC=$VPC
 export Subnet=$Subnet
 export SecurityGroup=$SecurityGroup

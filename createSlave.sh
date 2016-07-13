@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-source /usr/share/jmeter/extras/instanceproperties.sh
-source /usr/share/jmeter/extras/testproperties.sh
+source /usr/share/jmeter/extras/EC2instanceproperties.sh
+source /usr/share/jmeter/extras/JMetertestproperties.sh
 
 users=$1
 
@@ -11,8 +11,8 @@ sleep 5
 ####calculate no of slaves needed
 num=`expr $users + $Load - 1`
 SlavesNeeded=`expr $num / $Load`
-sed -i '/export SlavesNeeded=/d' /usr/share/jmeter/extras/testproperties.sh
-cat<<here >> /usr/share/jmeter/extras/testproperties.sh
+sed -i '/export SlavesNeeded=/d' /usr/share/jmeter/extras/JMetertestproperties.sh
+cat<<here >> /usr/share/jmeter/extras/JMetertestproperties.sh
 export SlavesNeeded=$SlavesNeeded
 here
 
@@ -32,7 +32,7 @@ count=`expr $SlavesNeeded - $Running`
 
 while [ $count > 0 ]
 do
-InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configScriptSlave --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configScriptSlave.sh --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 sleep 20
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Slave_$PROJECT
 echo -ne `aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PublicIpAddress" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g'` >> /usr/share/jmeter/extras/ip.txt
