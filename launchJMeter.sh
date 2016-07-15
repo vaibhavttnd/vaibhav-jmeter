@@ -11,7 +11,7 @@ echo "------------------Creating JMETER Master-----------------------------"
 aws ec2 create-key-pair --key-name $JMeterKey --query 'KeyMaterial' --output text > $JMeterKey.pem
 
 sleep 10
-InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $JMeterKey --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://configScriptMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $JMeterKey --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://configJMeterMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 
 sleep 10
 
@@ -27,7 +27,7 @@ echo "Done!"
 ########### ssh into master
 echo "About to run tests!"
 chmod 400 $JMeterKey.pem
-ssh -i $JMeterKey.pem -o "StrictHostKeyChecking no" ubuntu@$MasterIP -t "sudo bash -x /usr/share/jmeter/extras/jmeter_master.sh"
+ssh -i $JMeterKey.pem -o "StrictHostKeyChecking no" ubuntu@$MasterIP -t "sudo bash -x /usr/share/jmeter/extras/JMeterMasterRunTest.sh"
 
 #terminate jmeter master instance
 aws ec2 terminate-instances --instance-ids $InstanceID

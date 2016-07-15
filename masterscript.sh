@@ -40,8 +40,8 @@ export BUCKET_RESULT=LoadTestingResults_$PROJECT
 here
 
 #edit script to pass variables to JMeter master
-sed -i '/PROJECT=/d' configScriptMaster.sh
-sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT;" configScriptMaster.sh
+sed -i '/PROJECT=/d' configJMeterMaster.sh
+sed -i "/#!\/bin\/bash/a PROJECT=$PROJECT;BUCKET_INSTALL=$BUCKET_INSTALL;BUCKET_RESULT=LoadTestingResults_$PROJECT;" configJMeterMaster.sh
 
 echo "About to launch Jenkins Master Instance!"
 sleep 5

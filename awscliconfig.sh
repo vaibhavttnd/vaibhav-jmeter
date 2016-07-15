@@ -41,8 +41,8 @@ export AWS_SECRET_ACCESS_KEY=$SAK
 export AWS_CONFIG_FILE="~/.aws/config"
 
 #edit file to configure Jenkins Server
-sed -i '/\/var\/lib\/jenkins\/.aws\/config/Q' jenkins_install.sh
-cat <<here1 >> jenkins_install.sh
+sed -i '/\/var\/lib\/jenkins\/.aws\/config/Q' configJenkinsMaster.sh
+cat <<here1 >> configJenkinsMaster.sh
 cat <<here >> /var/lib/jenkins/.aws/config
 [default]
 region=$Region
@@ -51,8 +51,8 @@ here
 here1
 
 #pass variables to JMeter Master Server
-sed -i '/Region=/d' configScriptMaster.sh
-sed -i "/#!\/bin\/bash/a Region=$Region;Output=$Output;" configScriptMaster.sh
+sed -i '/Region=/d' configJMeterMaster.sh
+sed -i "/#!\/bin\/bash/a Region=$Region;Output=$Output;" configJMeterMaster.sh
 
 #write to EC2instanceproperties.sh
 cat <<here >> EC2instanceproperties.sh

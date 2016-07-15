@@ -1,12 +1,12 @@
 The following scripts are used to automate Load Testing using jmeter, ANT and Jenkins:
 	awscliconfig.sh
-	configScriptMaster.sh
-	configScriptSlave.sh
+	configJMeterMaster.sh
+	configJMeterSlave.sh
 	conversion.xml
 	creationAWSresources.sh
 	EC2instanceproperties.sh
-	jenkins_install.sh
-	jmeter_master.sh
+	configJenkinsMaster.sh
+	JMeterMasterRunTest.sh
 	jmeter-results-detail-report_21.xsl
 	launchJenkins.sh
 	launchJMeter.sh

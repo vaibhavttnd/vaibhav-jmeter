@@ -19,7 +19,7 @@ export URL=$URL
 here
 
 #push to git
-git add EC2instanceproperties.sh configScriptMaster.sh
+git add EC2instanceproperties.sh configJMeterMaster.sh
 git commit -m "EC2instanceproperties.sh"
 git push $URL
 
@@ -31,7 +31,7 @@ aws iam add-role-to-instance-profile --instance-profile-name LoadTesting-Instanc
 sleep 10
 
 #launch instance
-InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://jenkins_install.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --user-data file://configJenkinsMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 sleep 10
 echo "Jenkins Master created, Instance id= "$InstanceID
 
