@@ -23,7 +23,7 @@ fi
 sudo usermod -a -G sudo jenkins
 
 sudo apt-get install git -y
-sudo apt-get install awscli -y
+sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
 sudo apt-get install nginx -y
 
 #set proxy-pass

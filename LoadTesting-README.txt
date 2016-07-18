@@ -14,7 +14,7 @@ The following scripts are used to automate Load Testing using jmeter, ANT and Je
 	LoadTesting-README.txt
 	LoadTesting-Trust.json
 	masterscript.sh
-	runJMetertest.sh
+	runJMeterTest.sh
 	createSlave.sh
 	JMetertestproperties.sh
 
@@ -32,7 +32,9 @@ The repository will be cloned into a new folder in your present working director
 
 4. Create an empty Git repository: git init
 
-5. Execute the masterscript.sh: bash masterscript.sh
+5. Execute the masterscript.sh:
+	sudo -i
+	bash masterscript.sh
 This script calls awscliconfig.sh which configures AWS CLI on your local system by taking your credentials as parameters. This takes a few minutes.
 	#Enter Access Key
 	#Enter Secret Access Key
@@ -88,7 +90,7 @@ Push this file into your git repository.
 	In case there is a new commit, Build is triggered.
 	e) Add a new Build step as 'Execute Shell' and enter the following commands:
 		#!/bin/bash
-		bash runJMetertest.sh
+		bash runJMeterTest.sh
 	This will execute the script 'runJMetertest.sh' which creates JMeter master and slave servers to run the test.
 	In the end, it uploads the HTML report to the S3 bucket.
 	f) Save and Build the job

@@ -3,7 +3,7 @@
 
 #install awscli
 sudo apt-get update
-sudo apt-get install awscli -y
+sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
 
 #check if aws cli has been successfully installed
 if [ `which aws` ]
@@ -31,14 +31,16 @@ mkdir ~/.aws/ && touch ~/.aws/config
 
 cat <<here > ~/.aws/config
 [${Profile}]
+aws_access_key_id=$AK
+aws_secret_access_key=$SAK
 region=$Region
 output=$Output
 here
 
 #declare environment variables
-export AWS_ACCESS_KEY_ID=$AK
-export AWS_SECRET_ACCESS_KEY=$SAK
-export AWS_CONFIG_FILE="~/.aws/config"
+#export AWS_ACCESS_KEY_ID=$AK
+#export AWS_SECRET_ACCESS_KEY=$SAK
+#export AWS_CONFIG_FILE="~/.aws/config"
 
 #edit file to configure Jenkins Server
 sed -i '/\/var\/lib\/jenkins\/.aws\/config/Q' configJenkinsMaster.sh

@@ -10,7 +10,7 @@ sudo apt-get install openjdk-7-jdk --fix-missing -yy
 #install jmeter and ant
 sudo apt-get install jmeter -y
 sudo apt-get install ant -y
-sudo apt-get install awscli -y
+sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
 
 #remove loopback address from jmeter.properties
 sudo sed -i 's/remote_hosts=127/#remote_hosts=127/' /usr/share/jmeter/bin/jmeter.properties
