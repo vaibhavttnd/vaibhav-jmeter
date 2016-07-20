@@ -309,7 +309,7 @@
 			            <th>Success</th>
 			         </tr>
 			         		         
-			         <xsl:for-each select="../*[@lb = $label and @tn != $label]">			         			            
+			         <xsl:for-each select="../*[@lb = $label and @tn != $label and @s != 'true' ]">			         			            
 			            <tr>
 			               <td><xsl:value-of select="@tn" /></td>
 			               <td align="center"><xsl:value-of select="position()" /></td>
