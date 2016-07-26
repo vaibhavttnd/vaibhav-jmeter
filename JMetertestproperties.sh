@@ -1,6 +1,6 @@
 export jmxFile=tothenew
 export OutputFile=tothenewresult
-export users=5,10
-export Load=5
+export users=100,150,200
+export Load=200
 export Threshold=01
-export JMeterKey=JMeterKey_yovytskivv
+export JMeterKey=JMeterKey_jcbkzwwdpi
