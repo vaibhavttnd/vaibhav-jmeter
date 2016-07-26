@@ -25,7 +25,7 @@ sleep 300
 source /usr/share/jmeter/extras/JMetertestproperties.sh
 
 #read IP of all slaves
-IPList=$(cat /usr/share/jmeter/extras/ip.txt  | tr -d '\n' ; echo -ne '\b')
+IPList=$(cat /usr/share/jmeter/extras/ip.txt  | tr -d '\n'  | sed 's/,$//' )
 
 ##############calculate no of users per slave=> ceil(user/slaves)
 UsersPerSlave=$(expr $i / $SlavesNeeded)
