@@ -48,5 +48,5 @@ sudo mkdir /var/lib/jenkins/.aws/
 cat <<here >> /var/lib/jenkins/.aws/config
 [default]
 region=us-east-1
-output=json
+output=text
 here
