@@ -36,7 +36,7 @@ then
 fi
 
 #run test
-#jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$UsersPerSlave;
+jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$UsersPerSlave;
 ant -f /usr/share/jmeter/extras/conversion.xml
 
 #copy result file to S3
