@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECT=loadtesting_aafpecppfd;BUCKET_INSTALL=LoadTesting_loadtesting_aafpecppfd;BUCKET_RESULT=LoadTestingResults_loadtesting_aafpecppfd;
+PROJECT=loadtesting_wnfitbwlvy;BUCKET_INSTALL=LoadTesting_loadtesting_wnfitbwlvy;BUCKET_RESULT=LoadTestingResults_loadtesting_wnfitbwlvy;
 Region=us-east-1;Output=text;
 
 ############# PASSED AS USER DATA TO JMETER MASTER SERVER TO INSTALL JMETER & AWSCLI AND DOWNLOAD ALL FILES FROM S3
