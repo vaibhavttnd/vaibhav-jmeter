@@ -36,7 +36,7 @@ then
 fi
 
 #run test
-jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$UsersPerSlave;
+#jmeter -n -t /usr/share/jmeter/extras/File.jmx -l /usr/share/jmeter/extras/outputFile_"$i".xml -R $IPList -Gusers=$UsersPerSlave;
 ant -f /usr/share/jmeter/extras/conversion.xml
 
 #copy result file to S3
@@ -62,4 +62,4 @@ aws s3 cp "slave.log" s3://$BUCKET_RESULT/Logs/slave.log --grants read=uri=http:
 
 #####terminating all slave instances
 ID=`aws ec2 describe-instances --filters "Name=tag:Name,Values=Slave_$PROJECT" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text`
-#aws ec2 terminate-instances --instance-ids $ID
+aws ec2 terminate-instances --instance-ids $ID

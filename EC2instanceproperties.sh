@@ -8,6 +8,6 @@ export Subnet=subnet-7fe6ed42
 export SecurityGroup=sg-30739c4a
 export KeyPairName=key-vriwytqzwq
 export AMI=ami-fce3c696
-export InstanceType=m4.large
+export InstanceType=t2.micro
 export PassiveInstanceType=t2.nano
 export URL=https://github.com/pokekrishna/loadtestingdemo2

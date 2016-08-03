@@ -30,6 +30,6 @@ chmod 400 $JMeterKey.pem
 ssh -i $JMeterKey.pem -o "StrictHostKeyChecking no" ubuntu@$MasterIP -t "sudo bash -x /usr/share/jmeter/extras/JMeterMasterRunTest.sh"
 
 #terminate jmeter master instance
-#aws ec2 terminate-instances --instance-ids $InstanceID
+aws ec2 terminate-instances --instance-ids $InstanceID
 
 echo "End of tests!"
