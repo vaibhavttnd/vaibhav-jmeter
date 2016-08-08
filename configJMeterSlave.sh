@@ -20,5 +20,5 @@ sudo sed -i "s/run_java.*-Djmeter.home/run_java -Xms${MEM20}m -Xmx${MEM80}m -XX:
 
 
 #pass the ip of this slave as hostname and launch jmeter-server script
-ip=$(ec2metadata | grep -m 1 public-ipv4 | awk '{print $2}')
+ip=$(ec2metadata | grep -m 1 local-ipv4 | awk '{print $2}')
 /usr/share/jmeter/bin/jmeter-server -Djava.rmi.server.hostname=$ip
