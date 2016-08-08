@@ -44,14 +44,23 @@ echo -ne "Create Security Group (y/n)? "
 read create_sg
 if [ $create_sg == 'y' ]
 then
+	# create a security group
 	echo -ne "Enter name of Security Group: "
 	read SG
 	SecurityGroup=$(aws ec2 create-security-group --group-name $SG --description "Load Testing Security Group" --vpc-id $VPC | grep -o "sg-[0-9,a-z,A-Z]*")
-	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol all --cidr 0.0.0.0/0	
+	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 80 --cidr 0.0.0.0/0
+	aws ec2 authorize-security-group-ingress --group-id $SecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0	
 	echo "Security Group created, Security Group ID= "$SecurityGroup
+
+	# getting the ID of the default security group 
+	DefaultSecurityGroup=`aws ec2 describe-security-groups --filters "Name=vpc-id,Values=$VPC" --query "SecurityGroups[].[GroupName,GroupId]"  | tr -s ' ' ' ' | tr -s '\t' ' ' | egrep '^default ' | cut -d ' ' -f2`
 else
+	# use the Security Group entered by the user 
 	echo -ne "Enter Security Group Id: "
         read SecurityGroup
+
+    # assign DefaultSecurityGroup as SecurityGroup.
+    DefaultSecurityGroup=$SecurityGroup
 fi
 
 echo -ne "Create Key Pair (y/n)? "
@@ -69,6 +78,7 @@ cat <<here >> EC2instanceproperties.sh
 export VPC=$VPC
 export Subnet=$Subnet
 export SecurityGroup=$SecurityGroup
+export DefaultSecurityGroup=$DefaultSecurityGroup
 export KeyPairName=$KeyPairName
 here
 

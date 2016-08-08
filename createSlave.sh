@@ -39,10 +39,16 @@ count=`expr $SlavesNeeded - $Running`
 #if any slave has to be created, then:
 while [ $count > 0 ]
 do
-InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configJMeterSlave.sh --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $DefaultSecurityGroup $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configJMeterSlave.sh --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 sleep 20
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Slave_$PROJECT
-echo -ne `aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PublicIpAddress" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g'` >> /usr/share/jmeter/extras/ip.txt
+
+# appending public ip of slaves to the file
+#echo -ne `aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PublicIpAddress" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g'` >> /usr/share/jmeter/extras/ip.txt
+
+# appending private ip of the slave to the file
+echo -ne `aws ec2 describe-instances --instance-id $InstanceID --output json | grep "PrivateIpAddress" | head -1 | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g'` >> /usr/share/jmeter/extras/ip.txt
+
 echo -ne "," >> /usr/share/jmeter/extras/ip.txt
 count=`expr $count - 1`
 done
