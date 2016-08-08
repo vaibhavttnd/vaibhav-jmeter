@@ -24,7 +24,7 @@ MasterIP_Public=$(aws ec2 describe-instances --instance-id $InstanceID --output 
 MasterIP=$(aws ec2 describe-instances --instance-id $InstanceID --output json  | grep "PrivateIpAddress" | head -1 |  awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Master_$PROJECT
-echo "Master IP= "$MasterIP_Public
+echo "Master IP Public= "$MasterIP_Public
 echo "Wait while Master Instance is configured"
 sleep 300
 echo "Done!"
