@@ -11,7 +11,7 @@ echo "------------------Creating JMETER Master-----------------------------"
 aws ec2 create-key-pair --key-name $JMeterKey --query 'KeyMaterial' --output text > $JMeterKey.pem
 
 sleep 10
-InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $JMeterKey --security-group-ids $DefaultSecurityGroup $SecurityGroup --instance-type $PassiveInstanceType --user-data file://configJMeterMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --iam-instance-profile Name=LoadTesting-Instance-Profile --key-name $JMeterKey --security-group-ids $DefaultSecurityGroup  --instance-type $PassiveInstanceType --user-data file://configJMeterMaster.sh --subnet $Subnet --associate-public-ip-address --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 
 sleep 10
 

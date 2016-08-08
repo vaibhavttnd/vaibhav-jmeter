@@ -39,7 +39,7 @@ count=`expr $SlavesNeeded - $Running`
 #if any slave has to be created, then:
 while [ $count > 0 ]
 do
-InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $DefaultSecurityGroup $SecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configJMeterSlave.sh --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
+InstanceID=$(aws ec2 run-instances --image-id $AMI --key-name $KeyPairName --security-group-ids $DefaultSecurityGroup --instance-type $InstanceType --subnet $Subnet --associate-public-ip-address --user-data file:///usr/share/jmeter/extras/configJMeterSlave.sh --output json | grep "InstanceId" | awk '{print $2}' | sed 's/\"//g' | sed 's/\,//g')
 sleep 20
 aws ec2 create-tags --resource $InstanceID --tags Key=Name,Value=Slave_$PROJECT
 
