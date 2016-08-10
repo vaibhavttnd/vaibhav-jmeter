@@ -9,6 +9,6 @@ export SecurityGroup=sg-1bec1761
 export DefaultSecurityGroup=sg-64ec171e
 export KeyPairName=keyspewutlifc
 export AMI=ami-fce3c696
-export InstanceType=t2.nano
+export InstanceType=t2.micro
 export PassiveInstanceType=t2.nano
 export URL=https://github.com/pokekrishna/loadtestingdemo2
