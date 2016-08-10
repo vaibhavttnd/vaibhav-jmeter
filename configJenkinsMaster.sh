@@ -24,6 +24,9 @@ sudo usermod -a -G sudo jenkins
 
 sudo apt-get install git -y
 sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
+
+# START commenting out nginx installation and configuration
+: '
 sudo apt-get install nginx -y
 
 #set proxy-pass
@@ -44,6 +47,14 @@ then
 else 
 	echo "Nginx failed"
 fi
+'
+# END commenting out nginx installation and configuration
+
+# Instead of reverse proxying, using Netfilter for port redirection
+# 80 to 8080, and vice versa
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080
+
 sudo mkdir /var/lib/jenkins/.aws/
 cat <<here >> /var/lib/jenkins/.aws/config
 [default]

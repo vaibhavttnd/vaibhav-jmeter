@@ -2,8 +2,62 @@
 ##### INSTALLS AND CONFIGURES AWS CLI ON THE LOCAL SYSTEM
 
 #install awscli
-sudo apt-get update
-sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
+
+# check the modified date of /var/lib/apt/lists/partial/ and if it is more than 3 days old then perform update else prompt the user that update was performed less than 3 days from now, does he still want to perform update
+
+# TODO: If /var/lib/apt/lists/partial/ doesnt exist, straight away perform update
+
+FILE_TO_MONITOR="/var/lib/apt/lists/partial"
+# threshold is 2 days (in seconds)
+THRESHOLD_TIME=172800
+			
+if [ -a  "$FILE_TO_MONITOR" ];
+	then
+	# file exists
+	# check the last modified
+
+	FILE_MODIFIED_TIME=`stat --format=%Y $FILE_TO_MONITOR`
+	CURRENT_TIME=`date +'%s'`
+
+	if [ $((CURRENT_TIME-FILE_MODIFIED_TIME)) -le $THRESHOLD_TIME ];
+	then
+		# update was performed less than or eq 48 hours 
+		# Prompt for action with blank as NO (do not update)
+
+		while true;
+		do
+			echo -ne "Apt cache was updated less than $((THRESHOLD_TIME / (60*60))) hours ago, want to update n/y [no]: "
+			read USER_INPUT
+			: ${USER_INPUT:=no}
+
+			if [ "$USER_INPUT" == "yes" ] || [ "$USER_INPUT" == "y"   ];
+			then				sudo apt-get update
+				sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
+				break
+
+			elif [ "$USER_INPUT" == "no" ] || [ "$USER_INPUT" == "n" ]
+			then
+				break
+
+			fi
+		done
+
+	else
+		# perform update
+		sudo apt-get update
+		sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
+	fi
+
+else
+	# file doesnt exist
+	# perform update 
+	sudo apt-get update
+	sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
+fi
+
+# Uncommenting old code
+#sudo apt-get update
+#sudo apt-get install python-pip -y; sudo pip install --upgrade awscli;
 
 #check if aws cli has been successfully installed
 if [ `which aws` ]
