@@ -7,7 +7,7 @@ touch /tmp/LoadTesting.log
 > /tmp/LoadTesting.log
 
 echo "About to configure aws cli!"
-sleep 5
+sleep 1
 
 > EC2instanceproperties.sh
 

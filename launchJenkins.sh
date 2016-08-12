@@ -3,15 +3,80 @@
 ############# TO LAUNCH JENKINS MASTER SERVER AND DISPLAY IP AND ADMIN PASSWORD
 
 source EC2instanceproperties.sh
+source validator.sh --source-only
+
+
 PassiveInstanceType=t2.nano
 
 
-echo -n "Enter AMI ID: "
-read AMI
-echo -n "Enter Instance Type: "
-read InstanceType
-echo -n "Enter URL of the Git Repository: "
-read URL
+while true; do 
+	echo -n "Enter AMI ID: "
+	read AMI
+	
+	if `validateInput "." $AMI`; then
+		if `aws ec2 describe-images --image-ids ${AMI} 2>/dev/null 1>/dev/null`; then
+			break
+		fi
+	else
+		echo "Input seems inaccurate, please check."
+	fi
+done
+
+while true; do 
+	echo -n "Enter Instance Type: "
+	read InstanceType
+	
+	if `validateInput "." $`; then
+		# creating a temp file for exit status storage
+		TEMP_EXIT_STATUS_FILE="/tmp/aws_temp_exit_status_file"
+		TEMP_COMMAND_OUTPUT_FILE="/tmp/aws_temp_command_output_file"
+		> ${TEMP_EXIT_STATUS_FILE}
+		> ${TEMP_COMMAND_OUTPUT_FILE}
+		# validating the input instance by running the command in backgroung
+		# and then checking the exit status of command 
+
+		# creating command before inserting into bash sub shell, because subshell doesnt support path expansion.
+		COMMAND="aws ec2 describe-reserved-instances-offerings --instance-type ${InstanceType} --region ${Region}  > ${TEMP_COMMAND_OUTPUT_FILE} 2>&1 ; echo \$? > ${TEMP_EXIT_STATUS_FILE}"
+
+		bash -c  "($COMMAND)" & 
+		
+		echo -ne "Validating instance type"
+		while [[ ! -s ${TEMP_EXIT_STATUS_FILE} ]]; do
+			echo -ne "."; sleep 0.5;
+		done
+
+		if [[ `cat ${TEMP_EXIT_STATUS_FILE}` == 0  ]]; then
+			echo 'OK'
+			break
+		else
+			echo 'FAIL'
+			cat ${TEMP_COMMAND_OUTPUT_FILE}
+		fi
+
+		rm ${TEMP_EXIT_STATUS_FILE}
+		rm ${TEMP_COMMAND_OUTPUT_FILE}
+	else
+		echo "Input seems inaccurate, please check."
+	fi
+done
+
+
+while true; do 
+	echo -n "Enter URL of the Git Repository: "
+	read URL
+	if `validateInput "." $URL`; then
+		
+		#use git ls-remote to validate the url
+		git ls-remote $URL && IS_OKAY=1
+
+		if [[ ${IS_OKAY} -eq 1 ]]; then
+			break
+		fi
+	else
+		echo "Input seems inaccurate, please check."
+	fi
+done
+
 
 #write variables
 cat <<here >> EC2instanceproperties.sh
