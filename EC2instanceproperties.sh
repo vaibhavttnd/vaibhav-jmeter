@@ -12,3 +12,7 @@ export AMI=ami-fce3c696
 export InstanceType=t2.micro
 export PassiveInstanceType=t2.nano
 export URL=https://github.com/pokekrishna/loadtestingdemo2
+export AMI=ami-fce3c696
+export InstanceType=t2.nano
+export PassiveInstanceType=t2.nano
+export URL=https://github.com/pokekrishna/loadtestingdemo2
