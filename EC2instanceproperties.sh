@@ -1,0 +1,14 @@
+export Region=us-east-1
+export Output=text
+export PROJECT=loadtest_tyzycovboz
+export BUCKET_INSTALL=LoadTesting_loadtest_tyzycovboz
+export BUCKET_RESULT=LoadTestingResults_loadtest_tyzycovboz
+export VPC=vpc-03394a64
+export Subnet=subnet-c331ca8a
+export SecurityGroup=sg-6413d91e
+export DefaultSecurityGroup=sg-1312d869
+export KeyPairName=key
+export AMI=ami-fce3c696
+export InstanceType=t2.micro
+export PassiveInstanceType=t2.nano
+export URL=https://github.com/pokekrishna/loadtestingdemo2
