@@ -5,8 +5,8 @@
 source EC2instanceproperties.sh
 source validator.sh --source-only
 
-
-PassiveInstanceType=t2.nano
+# Set PassiveInstanceType to the type of instance of Jenkins and JMeter-Master.
+PassiveInstanceType=t2.micro
 
 
 while true; do 
@@ -92,9 +92,8 @@ git add EC2instanceproperties.sh configJMeterMaster.sh
 git commit -m "EC2instanceproperties.sh"
 
 while true; do
-
-	git push $URL && IS_OKAY=1
 	IS_OKAY=0
+	git push $URL && IS_OKAY=1
 	if [[ $IS_OKAY -eq 1 ]]; then
 		break
 	fi
