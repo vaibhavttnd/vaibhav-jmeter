@@ -67,6 +67,7 @@ while true; do
 	if `validateInput "." $URL`; then
 		
 		#use git ls-remote to validate the url
+		IS_OKAY=0
 		git ls-remote $URL && IS_OKAY=1
 
 		if [[ ${IS_OKAY} -eq 1 ]]; then
@@ -89,7 +90,15 @@ here
 #push to git
 git add EC2instanceproperties.sh configJMeterMaster.sh
 git commit -m "EC2instanceproperties.sh"
-git push $URL
+
+while true; do
+
+	git push $URL && IS_OKAY=1
+	IS_OKAY=0
+	if [[ $IS_OKAY -eq 1 ]]; then
+		break
+	fi
+done
 
 #create new role and instance profile
 aws iam create-role --role-name LoadTesting-Role --assume-role-policy-document file://LoadTesting-Trust.json
